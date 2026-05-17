@@ -1,0 +1,4010 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>TAG</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Leaflet CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"
+    />
+    <!-- Leaflet JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary-gradient: linear-gradient(135deg, #ffb6d9 0%, #ffc4e3 100%);
+        --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+        --border-radius: 20px;
+      }
+
+      body {
+        font-family: -apple-system, "SF Pro Display", system-ui, sans-serif;
+        background: #000000;
+        scrollbar-gutter: stable;
+      }
+
+      .app {
+        max-width: 420px;
+        margin: 0 auto;
+        background: #0f0f0f;
+        min-height: 100vh;
+        padding: 20px;
+        padding-bottom: 100px;
+      }
+
+      .header {
+        background: #2a2a2a;
+        padding: 24px 20px 20px;
+        border-radius: var(--border-radius);
+        box-shadow: var(--card-shadow);
+        margin-bottom: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        align-items: center;
+        position: relative;
+      }
+
+      .header h1 {
+        font-size: 24px !important;
+        font-weight: 700 !important;
+        color: #d1d5db !important;
+        background: none !important;
+        -webkit-background-clip: initial !important;
+        -webkit-text-fill-color: #d1d5db !important;
+        text-shadow: none !important;
+        letter-spacing: 0 !important;
+        font-family: -apple-system, system-ui, sans-serif !important;
+      }
+
+<<<<<<< HEAD
+      .chat-menu {
+=======
+      /* меню/поиск кнопка */
+      .menu-button-container {
+>>>>>>> f7b72ac90dfe668b0bdbed3e54cea5cbb549e539
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 10;
+      }
+
+<<<<<<< HEAD
+=======
+      .menu-button {
+        border: none;
+        background: none;
+        cursor: pointer;
+        font-size: 24px;
+        color: #000;
+        padding: 4px;
+      }
+
+      /* выпадающее меню-иконки под кнопкой ☰ */
+      .menu-icons {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: rgba(0, 0, 0, 0.85);
+        border-radius: 20px;
+        box-shadow: var(--card-shadow);
+        padding: 4px 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin-top: 8px;
+        z-index: 1000;
+        min-width: 60px;
+      }
+      .menu-icons.hidden {
+        display: none;
+      }
+
+      .menu-icons .icon-btn {
+        border: none;
+        background: none;
+        color: #fff;
+        cursor: pointer;
+        font-size: 24px;
+        padding: 8px 12px;
+        border-radius: 12px;
+        transition: background 0.2s;
+      }
+      .menu-icons .icon-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      /* выпадающая панель меню */
+      .menu-panel {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+      }
+
+      .menu-panel.visible {
+        display: flex;
+      }
+
+      .menu-panel .panel-content {
+        background: white;
+        width: 90%;
+        max-width: 420px;
+        border-radius: var(--border-radius);
+        padding: 20px;
+      }
+
+      /* tabs no longer shown because chat/search are triggered via icons */
+      .menu-panel .tabs {
+        display: none;
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+
+      .menu-panel .tab {
+        flex: 1 1 0;
+        padding: 8px 12px;
+        border: none;
+        background: #f0f0f0;
+        cursor: pointer;
+        border-radius: 12px;
+        font-weight: 600;
+      }
+
+      .menu-panel .tab.active {
+        background: var(--primary-gradient);
+        color: #fff;
+      }
+
+      .menu-panel .section {
+        display: none;
+      }
+
+      .menu-panel .section.active {
+        display: block;
+      }
+
+      .search-field {
+        width: 100%;
+        padding: 8px 12px;
+        border: 2px solid #e8ecf4;
+        border-radius: 16px;
+        font-size: 16px;
+        margin-bottom: 8px;
+      }
+
+      .search-result,
+      .chat-item {
+        padding: 10px 12px;
+        border-bottom: 1px solid #ddd;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .search-result .action-btn,
+      .chat-item .action-btn {
+        padding: 4px 8px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        background: var(--primary-gradient);
+        color: #fff;
+        font-size: 14px;
+      }
+
+      /* ===== ПРОФИЛЬ ===== */
+>>>>>>> f7b72ac90dfe668b0bdbed3e54cea5cbb549e539
+      .profile-menu {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 10;
+      }
+
+      .profile-button {
+        border: none;
+        background: none;
+        cursor: pointer;
+        padding: 4px;
+        border-radius: 50%;
+        transition: all 0.2s ease;
+      }
+
+      .profile-avatar-small {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .profile-button:hover .profile-avatar-small {
+        transform: scale(1.1);
+      }
+
+      .header-buttons {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        width: 100%;
+        flex-wrap: wrap;
+      }
+
+      .themes-menu {
+        position: relative;
+        display: inline-block;
+      }
+
+      .themes-button {
+        outline: none !important;
+        border: none !important;
+        padding: 8px 16px;
+        font-size: 15px;
+        min-height: 40px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        color: #000 !important; /* explicit black text to override browser accent color */
+      }
+
+      .themes-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 16px;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+        min-width: 200px;
+        z-index: 1000;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 12px;
+        max-width: 300px;
+      }
+
+      .themes-dropdown.hidden {
+        display: none;
+      }
+
+      .theme-chip {
+        flex: 1 1 80px;
+        padding: 8px 12px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        text-align: center;
+        cursor: pointer;
+        border-radius: 16px;
+        color: #ffffff !important;
+        font-weight: 500;
+        font-size: 14px;
+        white-space: nowrap;
+        transition: all 0.2s ease;
+      }
+
+      .theme-chip:hover {
+<<<<<<< HEAD
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(15px);
+        color: #ffffff !important;
+=======
+        background: #e3f2fd;
+        color: #000000 !important;
+>>>>>>> f7b72ac90dfe668b0bdbed3e54cea5cbb549e539
+        transform: translateY(-1px);
+      }
+
+      .theme-chip.active {
+        background: var(--primary-gradient);
+        backdrop-filter: blur(10px);
+        color: #fff !important;
+        box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+      }
+
+      .cities-menu {
+        position: relative;
+        display: inline-block;
+      }
+
+      .cities-button {
+        outline: none !important;
+        border: none !important;
+        width: auto;
+        padding: 8px 16px;
+        font-size: 15px;
+        min-height: 40px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        color: #000 !important; /* explicit color */
+      }
+
+      .cities-button:focus {
+        outline: none !important;
+        box-shadow: none !important;
+      }
+
+      .cities-dropdown {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: #2a2a2a;
+        border-radius: 16px;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+        min-width: 160px;
+        z-index: 1000;
+      }
+
+      .cities-dropdown.hidden {
+        display: none;
+      }
+
+      .city-chip {
+        display: block;
+        width: 100%;
+        padding: 10px 16px;
+        border: none;
+        background: none;
+        text-align: left;
+        cursor: pointer;
+        border-radius: 12px;
+        color: #888888 !important;
+        font-weight: 500;
+        font-size: 15px;
+      }
+
+      .city-chip:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #ffffff !important;
+      }
+
+      .city-chip.active {
+        background: rgba(255, 182, 217, 0.2);
+        color: #ffb6d9 !important;
+      }
+
+      .add-city {
+        background: linear-gradient(135deg, #f093fb, #f5576c) !important;
+        color: #fff !important;
+      }
+
+      .place-card {
+        background: rgb(35, 35, 36) !important;
+        border-radius: var(--border-radius);
+        padding: 0;
+        overflow: hidden;
+        box-shadow: var(--card-shadow);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        cursor: pointer !important;
+      }
+
+      .place-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+      }
+
+      .place-card img {
+        width: 100%;
+        height: auto !important;
+        aspect-ratio: 16/10;
+        object-fit: cover;
+        border-radius: 20px 20px 0 0;
+      }
+
+      .place-card-content {
+        padding: 20px;
+      }
+
+      .place-card-title {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        color: #ebebeb;
+      }
+
+      .secret-place-mark {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 18px;
+        height: 18px;
+        margin-left: 6px;
+        border-radius: 50%;
+        color: #ffb6d9;
+        border: 1px solid rgba(255, 182, 217, 0.45);
+        background: rgba(255, 182, 217, 0.08);
+        font-size: 13px;
+        line-height: 1;
+        vertical-align: 2px;
+      }
+
+      .place-card-desc {
+        font-size: 16px;
+        color: #585858;
+        line-height: 1.5;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .card-theme-list {
+        margin-top: 8px;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .card-theme-chip {
+        font-size: 12px;
+        padding: 4px 8px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.03);
+        color: #dcdcdc;
+        border: 1px solid rgba(255, 255, 255, 0.03);
+      }
+
+      .card-theme-list {
+        margin-top: 8px;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .card-theme-chip {
+        font-size: 12px;
+        padding: 4px 8px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.04);
+        color: #dcdcdc;
+        border: 1px solid rgba(255, 255, 255, 0.03);
+      }
+
+      .card-theme-list {
+        margin-top: 8px;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .card-theme-chip {
+        font-size: 12px;
+        padding: 4px 8px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.03);
+        color: #dcdcdc;
+        border: 1px solid rgba(255, 255, 255, 0.03);
+      }
+
+      .card-theme-list {
+        margin-top: 8px;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .card-theme-chip {
+        font-size: 12px;
+        padding: 4px 8px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.04);
+        color: #dcdcdc;
+        border: 1px solid rgba(255, 255, 255, 0.03);
+      }
+
+      .places-list {
+        display: flex !important;
+        flex-direction: column;
+        gap: 16px;
+        min-height: 200px;
+      }
+
+      .suggest-button {
+        position: fixed;
+        bottom: 32px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #ffb6d9;
+        color: white;
+        border: none;
+        border-radius: 50px;
+        padding: 18px 36px;
+        font-size: 17px;
+        font-weight: 700;
+        box-shadow: 0 12px 32px rgba(255, 182, 217, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .suggest-button:hover:active {
+        transform: translateX(-50%) translateY(2px);
+        box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+      }
+
+      .modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(10px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        animation: fadeIn 0.3s ease;
+        z-index: 3000;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .modal.hidden {
+        display: none;
+      }
+      /* generic utility class for hiding elements */
+      .hidden {
+        display: none !important;
+      }
+
+      .modal-content {
+        background: rgb(53, 53, 54);
+        padding: 32px;
+        border-radius: 28px;
+        width: 90%;
+        max-width: 440px;
+        max-height: 85vh;
+        overflow-y: auto;
+        box-shadow: 0 32px 64px rgba(0, 0, 0, 0.25);
+        animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+      }
+
+      .modal-close-btn {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: none;
+        border: none;
+        color: #888;
+        font-size: 28px;
+        cursor: pointer;
+        padding: 0;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: all 0.2s ease;
+      }
+
+      .modal-close-btn:hover {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(50px) scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      .modal-content h2 {
+        font-size: 24px;
+        font-weight: 800;
+        margin-bottom: 24px;
+        background: #ffb6d9;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .modal-content label {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 20px;
+        font-size: 15px;
+        font-weight: 600;
+      }
+
+      .modal-content input,
+      .modal-content textarea,
+      .modal-content select {
+        padding: 16px 20px;
+        border: 2px solid #e8ecf4;
+        border-radius: 16px;
+        font-size: 16px;
+        background: #3b3b3b;
+        transition: all 0.3s ease;
+        font-family: inherit;
+        color: white;
+      }
+
+      .modal-content input:focus,
+      .modal-content textarea:focus,
+      .modal-content select:focus {
+        outline: none;
+        border-color: #dca8c4;
+        box-shadow: 0 0 0 4px rgba(255, 20, 147, 0.1);
+        background: rgb(44, 44, 45);
+      }
+
+      .modal-content textarea {
+        min-height: 100px;
+        resize: vertical;
+      }
+
+      .modal-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 16px;
+        margin-top: 24px;
+      }
+
+      .btn {
+        padding: 10px 20px;
+        border-radius: 12px;
+        border: none;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        min-width: 80px;
+      }
+
+      .btn.primary {
+        background: #ffb6d9;
+        color: rgb(255, 255, 255);
+        box-shadow: 0 4px 12px rgba(255, 182, 217, 0.3);
+      }
+
+      .btn.primary:hover:active {
+        transform: translateY(1px);
+      }
+
+      .btn.secondary {
+        background: #2a2a2a;
+        color: #6c757d;
+      }
+
+      .btn.danger {
+        background: #6c757d;
+        color: white;
+      }
+
+      .btn.danger:hover {
+        background: #5a6268;
+      }
+
+      .modal-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .modal-actions-row {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        width: 100%;
+      }
+
+      .modal-actions-row .btn {
+        flex: 1 1 auto;
+        min-width: 0;
+      }
+
+      .avatar-upload {
+        position: relative;
+        display: block;
+        cursor: pointer;
+      }
+
+      .profile-avatar {
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        object-fit: cover;
+        transition: all 0.3s ease;
+      }
+
+      .upload-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.7);
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 14px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .avatar-upload:hover .upload-overlay {
+        opacity: 1;
+      }
+
+      .profile-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        padding: 20px 0;
+      }
+
+      .secret-eye-btn {
+        position: absolute;
+        top: 18px;
+        left: 18px;
+        width: 54px;
+        height: 38px;
+        border: none;
+        background: transparent;
+        opacity: 0.62;
+        cursor: pointer;
+        padding: 0;
+        z-index: 25;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+      }
+
+      .secret-eye-btn:hover,
+      .secret-eye-btn.unlocked {
+        opacity: 0.95;
+        transform: scale(1.04);
+      }
+
+      .secret-eye-shape {
+        position: absolute;
+        inset: 5px 2px;
+        border: 2.5px solid rgba(255, 182, 217, 0.96);
+        border-radius: 50% 50% 50% 50% / 70% 70% 70% 70%;
+        box-shadow: 0 0 16px rgba(255, 32, 168, 0.48);
+        transform: rotate(-8deg);
+      }
+
+      .secret-eye-pupil {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 13px;
+        height: 13px;
+        border-radius: 50%;
+        background: rgba(255, 182, 217, 0.95);
+        box-shadow: 0 0 16px rgba(255, 32, 168, 0.8);
+        transform: translate(-50%, -50%);
+      }
+
+      .secret-flash {
+        position: fixed;
+        inset: 0;
+        z-index: 5000;
+        pointer-events: none;
+        opacity: 0;
+        background:
+          radial-gradient(circle at center, rgba(255, 255, 255, 0.96) 0%, rgba(255, 57, 181, 0.88) 22%, rgba(255, 0, 153, 0.4) 54%, transparent 76%);
+      }
+
+      .secret-flash.active {
+        animation: secretFlash 1s ease-out forwards;
+      }
+
+      @keyframes secretFlash {
+        0% { opacity: 0; }
+        16% { opacity: 1; }
+        100% { opacity: 0; }
+      }
+
+      .profile-info {
+        text-align: center;
+      }
+
+      .favorites-section {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 16px;
+        padding: 12px;
+        margin: 14px 20px 8px;
+      }
+
+      .favorites-section h3 {
+        color: #fff;
+        margin-bottom: 10px;
+        font-size: 15px;
+      }
+
+      .favorites-list {
+        display: grid;
+        gap: 8px;
+      }
+
+      .favorite-item {
+        background: #1a1a1a;
+        border-radius: 12px;
+        padding: 8px 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .favorite-item span {
+        color: #eee;
+      }
+
+      .favorite-item button {
+        border: none;
+        background: transparent;
+        color: #ffce00;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      .profile-nickname {
+        font-size: 22px;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 12px;
+      }
+
+      .nickname-edit {
+        background: #3b3b3b;
+        border: 2px solid transparent;
+        border-radius: 12px;
+        padding: 12px 16px;
+        color: white;
+        font-size: 18px;
+        font-weight: 600;
+        text-align: center;
+        margin-top: 8px;
+        transition: all 0.3s ease;
+        width: 200px;
+      }
+
+      .nickname-edit:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+      }
+
+      .place-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 2000;
+      }
+      .place-modal.hidden {
+        display: none !important;
+      }
+      .place-modal-overlay {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.8);
+        height: 100vh;
+        padding: 20px;
+      }
+      .place-modal-content {
+        width: 90%;
+        max-width: 500px;
+        height: 80vh;
+        background: rgb(50, 50, 50);
+        border-radius: 24px;
+        overflow: hidden;
+        position: relative;
+      }
+      .share-location-icon {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: rgba(255, 182, 217, 0.9);
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+        color: white;
+        cursor: pointer;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+      }
+      .share-location-icon:hover {
+        background: rgba(255, 182, 217, 1);
+        transform: scale(1.1);
+      }
+      .place-gallery {
+        position: relative;
+        height: 300px;
+        background: #252525;
+      }
+      #placePhotoMain {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .gallery-prev,
+      .gallery-next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0, 0, 0, 0.5);
+        color: rgb(255, 255, 255);
+        border: none;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+      .gallery-prev {
+        left: 12px;
+      }
+      .gallery-next {
+        right: 12px;
+      }
+      .photo-counter {
+        position: absolute;
+        bottom: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.7);
+        color: rgb(24, 24, 24);
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 14px;
+      }
+      .place-info {
+        padding: 24px;
+        height: calc(80vh - 300px);
+        overflow-y: auto;
+      }
+      .place-info h2 {
+        margin: 0 0 12px;
+        font-size: 24px;
+        font-weight: 700;
+      }
+      .place-info p {
+        color: #666;
+        line-height: 1.6;
+        margin-bottom: 20px;
+      }
+      .place-map {
+        height: 200px;
+        background: #29292d;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        border: 2px dashed #363636;
+        overflow: hidden;
+      }
+
+      #placeMap .leaflet-container {
+        border-radius: 16px;
+      }
+
+      #placeMap .leaflet-control-attribution {
+        background: rgba(0, 0, 0, 0.7) !important;
+        color: #999 !important;
+        font-size: 10px !important;
+      }
+
+      #placeMap .leaflet-popup-content-wrapper {
+        background: #333 !important;
+        color: #fff !important;
+        border-radius: 8px !important;
+      }
+
+      #placeMap .leaflet-popup-tip {
+        background: #333 !important;
+      }
+      .place-close-btn {
+        width: 100%;
+        padding: 16px;
+        background: #515151;
+        border: none;
+        border-radius: 16px;
+        font-size: 17px;
+        font-weight: 600;
+      }
+
+      .burger-menu-btn {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 8px;
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 10;
+      }
+
+      .burger-menu-btn span {
+        width: 24px;
+        height: 2px;
+        background: #333;
+        border-radius: 2px;
+        transition: all 0.3s ease;
+      }
+
+      .burger-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 200;
+        display: none;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .burger-menu.open {
+        display: flex;
+      }
+
+      .burger-menu-content {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        border-radius: 20px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        max-width: 300px;
+        width: 90%;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .burger-menu-item {
+        padding: 12px 16px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 16px;
+        cursor: pointer;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .burger-menu-item:hover {
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(15px);
+      }
+
+      .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        max-width: 420px;
+        margin: 0 auto;
+        background: #2a2a2a;
+        border-top: 1px solid #444;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 20px;
+        z-index: 100;
+      }
+
+      .nav-button {
+        flex: 1;
+        padding: 12px 8px;
+        border: none;
+        background: none;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 500;
+        color: #888;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .nav-icon {
+        font-size: 24px;
+        line-height: 1;
+      }
+
+      .nav-label {
+        font-size: 12px;
+        white-space: nowrap;
+      }
+
+      .nav-button:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+      }
+
+      .nav-button.active {
+        color: #ffb6d9;
+        background: rgba(255, 182, 217, 0.1);
+      }
+
+      .save-location-btn {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .save-location-btn:hover {
+        transform: scale(1.2);
+      }
+
+      .save-location-btn.saved {
+        color: #ffd700;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        body {
+          background: #1a1a1a;
+        }
+        .header,
+        .place-card,
+        .modal-content,
+        .cities-dropdown,
+        .themes-dropdown {
+          background: #2a2a2a;
+        }
+      }
+
+      #placePhotoMain {
+        width: 100%;
+        height: 100%;
+        object-fit: contain !important;
+        background: #212121;
+      }
+
+      .map-view,
+      .search-view {
+        position: fixed;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        max-width: 420px;
+        bottom: 76px;
+        background: #0f0f0f;
+        z-index: 400;
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        border-radius: 0;
+      }
+
+      .map-view.active,
+      .search-view.active,
+      .game-view.active {
+        display: flex;
+      }
+
+      .map-view-header {
+        display: none;
+      }
+
+      .search-view {
+        padding: 16px;
+      }
+
+      .game-view {
+        position: fixed;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        max-width: 420px;
+        bottom: 76px;
+        background: #0f0f0f;
+        z-index: 400;
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        border-radius: 0;
+      }
+
+      .game-panel {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 16px;
+        gap: 12px;
+        min-height: 0;
+        overflow-y: auto;
+      }
+
+      .game-panel-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .game-card {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 16px;
+        border-radius: 24px;
+        background: #1d1d1f;
+        flex: 1;
+        min-height: 0;
+      }
+
+      .game-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .game-tabs {
+        display: flex;
+        gap: 10px;
+      }
+
+      .game-tab {
+        flex: 1;
+        padding: 10px 14px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(255, 255, 255, 0.08);
+        color: #fff;
+        border-radius: 18px;
+        cursor: pointer;
+        font-size: 13px;
+        transition: all 0.2s ease;
+      }
+
+      .game-tab.active {
+        background: rgba(255, 255, 255, 0.16);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .game-tab:hover {
+        background: rgba(255, 255, 255, 0.14);
+      }
+
+      .game-card-header h3 {
+        margin: 0;
+        color: #fff;
+        font-size: 18px;
+      }
+
+      .game-card-header p {
+        margin: 4px 0 0;
+        color: #aaa;
+        font-size: 13px;
+      }
+
+      .game-canvas-wrapper {
+        border: 1px solid #333;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 auto;
+        align-self: center;
+        aspect-ratio: 1 / 1;
+        min-height: 0;
+        background: #121214;
+        border-radius: 18px;
+      }
+
+      #gameCanvas {
+        width: 100%;
+        height: 100%;
+        display: block;
+        max-width: 100%;
+        max-height: 100%;
+      }
+
+      .game-dom-area {
+        display: none;
+      }
+
+      .game-dom-area.active {
+        display: block;
+      }
+
+      .rat-den-stage {
+        position: relative;
+        min-height: 320px;
+        border-radius: 18px;
+        overflow: hidden;
+        background:
+          radial-gradient(circle at top, rgba(248, 24, 148, 0.1), transparent 40%),
+          #020203;
+        border: 1px solid rgba(248, 24, 148, 0.16);
+        box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.45);
+      }
+
+      .rat-den-grid {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        pointer-events: none;
+      }
+
+      .rat-den-stream {
+        position: absolute;
+        top: -65%;
+        color: rgba(248, 24, 148, 0.9);
+        text-shadow: 0 0 8px rgba(248, 24, 148, 0.28);
+        font-family: "Courier New", monospace;
+        font-weight: 700;
+        letter-spacing: 5px;
+        line-height: 1.7;
+        user-select: none;
+        white-space: pre;
+        opacity: var(--stream-opacity, 0.55);
+        animation: ratDenRain var(--stream-duration, 8s) linear infinite;
+        animation-delay: var(--stream-delay, 0s);
+        transform: translateY(-120%);
+      }
+
+      .rat-den-scanline {
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.04),
+            rgba(255, 255, 255, 0.01) 2px,
+            transparent 2px,
+            transparent 6px
+          );
+        mix-blend-mode: soft-light;
+        pointer-events: none;
+      }
+
+      .rat-den-rat {
+        position: absolute;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        background: transparent;
+        padding: 0;
+        box-shadow: none;
+        cursor: pointer;
+        transform: translate(-50%, -50%) rotate(var(--rat-rotate, 0deg)) scale(1);
+        transition: transform 0.12s ease, box-shadow 0.12s ease;
+      }
+
+      .rat-den-rat::before {
+        content: "";
+        width: 100%;
+        height: 100%;
+        display: block;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 64'%3E%3Cpath d='M10 37c0-10 10-18 24-18 8 0 15 2 20 6l8-2c4-1 8 0 11 2l8 5c5 3 7 6 7 10 0 3-2 6-5 6-3 0-5-2-6-4l-3-5-6-2c0 10-10 18-24 18C26 53 10 46 10 37Z' fill='%23d8d8df'/%3E%3Ccircle cx='63' cy='23' r='10' fill='%23d8d8df'/%3E%3Ccircle cx='58' cy='15' r='4' fill='%23d8d8df'/%3E%3Ccircle cx='67' cy='14' r='4' fill='%23d8d8df'/%3E%3Ccircle cx='66' cy='22' r='1.8' fill='%23f81894'/%3E%3Cpath d='M72 23h8' stroke='%23d8d8df' stroke-width='2.6' stroke-linecap='round'/%3E%3Cpath d='M80 23c7 0 12 4 12 9 0 4-3 7-7 7' stroke='%23d8d8df' stroke-width='2.8' stroke-linecap='round' fill='none'/%3E%3Cpath d='M29 49l-4 8M43 50l-3 8M56 48l-2 8' stroke='%23d8d8df' stroke-width='2.8' stroke-linecap='round'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.42));
+      }
+
+      .rat-den-rat:hover {
+        transform: translate(-50%, -50%) rotate(var(--rat-rotate, 0deg)) scale(1.08);
+        box-shadow: none;
+      }
+
+      .rat-den-overlay {
+        position: absolute;
+        inset: auto 12px 12px 12px;
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: center;
+        padding: 10px 12px;
+        border-radius: 14px;
+        background: rgba(0, 0, 0, 0.42);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: #d4d4d8;
+        font-size: 12px;
+      }
+
+      .rat-den-empty {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 24px;
+        color: rgba(248, 24, 148, 0.92);
+        font-family: "Courier New", monospace;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        pointer-events: none;
+      }
+
+      @keyframes ratDenRain {
+        from {
+          transform: translateY(-120%);
+        }
+        to {
+          transform: translateY(150%);
+        }
+      }
+
+      .game-info {
+        color: #ccc;
+        font-size: 14px;
+      }
+
+      .game-stats {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        color: #f3f4f6;
+        font-size: 14px;
+      }
+
+      .game-stat-label {
+        color: #9ca3af;
+        margin-right: 6px;
+      }
+
+      .game-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .game-actions .add-friend-btn {
+        flex: 1 1 110px;
+      }
+
+      .game-tray {
+        display: none;
+      }
+
+      .game-tray.active {
+        display: block;
+      }
+
+      .block-tray {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .block-piece {
+        min-height: 86px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        padding: 10px;
+        touch-action: none;
+        user-select: none;
+      }
+
+      .block-piece.active {
+        border-color: rgba(255, 182, 217, 0.8);
+        box-shadow: 0 0 0 1px rgba(255, 182, 217, 0.5);
+      }
+
+      .block-piece.dragging {
+        opacity: 0.6;
+        transform: scale(0.98);
+      }
+
+      .block-piece.used {
+        opacity: 0.3;
+        cursor: default;
+      }
+
+      .block-piece-grid {
+        display: grid;
+        gap: 4px;
+      }
+
+      .block-piece-cell {
+        width: 14px;
+        height: 14px;
+        border-radius: 4px;
+        background: transparent;
+      }
+
+      .block-piece-cell.filled {
+        background: #ffb6d9;
+      }
+
+      .sudoku-board {
+        display: grid;
+        grid-template-columns: repeat(9, minmax(0, 1fr));
+        gap: 2px;
+        background: #333;
+        padding: 2px;
+        border-radius: 16px;
+      }
+
+      .sudoku-cell {
+        aspect-ratio: 1 / 1;
+        border: none;
+        background: #1b1b1d;
+        color: #f3f4f6;
+        font-size: 18px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .sudoku-cell.fixed {
+        color: #ffcfde;
+      }
+
+      .sudoku-cell.selected {
+        background: rgba(255, 182, 217, 0.24);
+      }
+
+      .sudoku-cell.related {
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .sudoku-cell.error {
+        color: #f87171;
+      }
+
+      .sudoku-cell[data-col="2"],
+      .sudoku-cell[data-col="5"] {
+        margin-right: 2px;
+      }
+
+      .sudoku-cell[data-row="2"],
+      .sudoku-cell[data-row="5"] {
+        margin-bottom: 2px;
+      }
+
+      .sudoku-pad {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 8px;
+        margin-top: 12px;
+      }
+
+      .sudoku-pad-btn {
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(255, 255, 255, 0.08);
+        color: #fff;
+        border-radius: 14px;
+        min-height: 42px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      @media (max-width: 480px) {
+        .game-actions {
+          flex-direction: column;
+        }
+      }
+
+      .shape-fit-piece {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: grab;
+        transition: all 0.2s ease;
+        padding: 14px;
+        min-width: 80px;
+        min-height: 80px;
+      }
+
+      .shape-fit-piece:hover {
+        transform: scale(1.05);
+      }
+
+      .shape-fit-piece.dragging {
+        /* opacity: 0.5; */
+      }
+
+      .shape-fit-piece-grid {
+        display: grid;
+        grid-gap: 8px;
+        justify-content: center;
+        align-content: center;
+      }
+
+      .shape-fit-cell {
+        width: 100%;
+        height: 100%;
+        min-width: 20px;
+        min-height: 20px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 4px;
+      }
+
+      .shape-fit-cell.filled {
+        background: #8b5cf6;
+      }
+
+      .search-panel {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .search-panel-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .search-panel-top h2 {
+        margin: 0;
+        color: #fff;
+        font-size: 20px;
+        font-weight: 700;
+      }
+
+      .search-input-wrapper {
+        width: 100%;
+      }
+
+      .search-input-wrapper input {
+        width: 100%;
+        padding: 16px 18px;
+        border-radius: 20px;
+        border: 1px solid #444;
+        background: #121212;
+        color: #fff;
+        font-size: 15px;
+      }
+
+      .search-results {
+        flex: 1;
+        overflow-y: auto;
+        display: grid;
+        gap: 12px;
+      }
+
+      .user-card {
+        background: #1f1f1f;
+        border-radius: 18px;
+        padding: 14px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .user-card-info {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .user-card-name {
+        color: #fff;
+        font-weight: 700;
+      }
+
+      .user-card-nickname {
+        color: #aaa;
+        font-size: 13px;
+      }
+
+      .add-friend-btn {
+        padding: 10px 14px;
+        border-radius: 14px;
+        border: none;
+        background: #ffb6d9;
+        color: #111;
+        cursor: pointer;
+        font-weight: 700;
+      }
+
+      .add-friend-btn.requested {
+        background: #555;
+        color: #fff;
+        cursor: default;
+      }
+
+      .map-view-header h2 {
+        margin: 0;
+        color: #fff;
+        font-size: 20px;
+        font-weight: 700;
+      }
+
+      .map-close-btn {
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 8px;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: all 0.2s ease;
+      }
+
+      .map-close-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      #mapViewContainer {
+        flex: 1;
+        width: 100%;
+        height: 100%;
+        position: relative;
+      }
+
+      #mapViewContainer .leaflet-container {
+        height: 100% !important;
+        width: 100% !important;
+      }
+
+      #mapViewContainer .leaflet-control-attribution {
+        background: rgba(0, 0, 0, 0.7) !important;
+        color: #999 !important;
+        font-size: 10px !important;
+      }
+
+      #mapViewContainer .leaflet-popup-content-wrapper {
+        background: #333 !important;
+        color: #fff !important;
+        border-radius: 8px !important;
+      }
+
+      #mapViewContainer .leaflet-popup-tip {
+        background: #333 !important;
+      }
+
+      .leaflet-control-zoom {
+        border: 1px solid #555 !important;
+        border-radius: 8px !important;
+        background: #2a2a2a !important;
+      }
+
+      .leaflet-control-zoom-in,
+      .leaflet-control-zoom-out {
+        color: #fff !important;
+        background: #2a2a2a !important;
+        border: 1px solid #444 !important;
+        width: 36px !important;
+        height: 36px !important;
+        line-height: 36px !important;
+        font-size: 16px !important;
+        text-align: center !important;
+      }
+
+      .leaflet-control-zoom-in:hover,
+      .leaflet-control-zoom-out:hover {
+        background: #3a3a3a !important;
+      }
+    </style>
+  </head>
+  <body
+    data-user-id="{{ current_user.id }}"
+    data-user-name="{{ current_user.nickname }}"
+  >
+    <div class="app">
+      <header class="header">
+<<<<<<< HEAD
+=======
+        <!-- меню/поиск в левом углу -->
+        <div class="menu-button-container">
+          <button id="menuBtn" class="menu-button">☰</button>
+          <!-- вертикальная тёмная плашка с иконками -->
+          <div id="menuIcons" class="menu-icons hidden">
+            <button id="chatIconBtn" class="icon-btn" title="Чаты">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                width="24"
+                height="24"
+              >
+                <path
+                  d="M4 4h16v12H5.17L4 17.17V4zm0-2a2 2 0 0 0-2 2v15l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H4z"
+                />
+              </svg>
+            </button>
+            <button id="searchIconBtn" class="icon-btn" title="Поиск">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                width="24"
+                height="24"
+              >
+                <path
+                  d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C8.01 14 6 11.99 6 9.5S8.01 5 10.5 5 15 7.01 15 9.5 12.99 14 10.5 14z"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <!-- Заголовок сверху по центру -->
+        <h1>TAG</h1>
+>>>>>>> f7b72ac90dfe668b0bdbed3e54cea5cbb549e539
+
+        <button class="burger-menu-btn" id="burgerMenuBtn">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <h1>TAG</h1>
+
+        <div class="header-buttons">
+
+          <div class="themes-menu">
+            <button id="themesBtn" class="themes-button">Themes ▼</button>
+            <div id="themesDropdown" class="themes-dropdown hidden">
+              <button class="theme-chip active" data-theme="all">
+                All
+              </button>
+              <button class="theme-chip" data-theme="popular">
+                Popular
+              </button>
+              <button class="theme-chip" data-theme="culture">Culture</button>
+              <button class="theme-chip" data-theme="for-photos">
+                For Photos
+              </button>
+              <button class="theme-chip" data-theme="restaurant">
+                Restaurant
+              </button>
+              <button class="theme-chip" data-theme="yum">Yum</button>
+              <button class="theme-chip" data-theme="leisure">Leisure</button>
+              <button class="theme-chip" data-theme="нишевые">Нишевые</button>
+              <button class="theme-chip" data-theme="бары">Бары</button>
+            </div>
+          </div>
+
+          <div class="cities-menu">
+            <button id="citiesBtn" class="cities-button">Новосибирск ▼</button>
+            <div id="citiesDropdown" class="cities-dropdown hidden">
+              <button class="city-chip active" data-city="novosibirsk">
+                Новосибирск
+              </button>
+              <button class="city-chip" data-city="moscow">Москва</button>
+              <button class="city-chip" data-city="spb">Санкт-Петербург</button>
+              <button class="city-chip add-city" data-city="add">
+                ➕ Добавить город
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+<<<<<<< HEAD
+      <div class="burger-menu" id="burgerMenu">
+        <div class="burger-menu-content">
+          <button class="burger-menu-item" id="suggestBtn">
+            ➕ Suggest a location
+          </button>
+          <button class="burger-menu-item" id="searchBtn">
+            🔍 Search users
+          </button>
+          <button class="burger-menu-item" id="gamesBtn">
+            🎮 Games
+          </button>
+          <button class="burger-menu-item" id="favoritesBtn">
+            ⭐ Favorites
+=======
+      <!-- меню чатов / поиск пользователей -->
+      <div id="menuPanel" class="menu-panel">
+        <div class="panel-content">
+          <div class="tabs">
+            <button id="tabChats" class="tab active">Чаты</button>
+            <button id="tabSearch" class="tab">Поиск</button>
+          </div>
+          <div id="chatsSection" class="section active">
+            <div id="chatsList">
+              <p>Нет чатов</p>
+            </div>
+          </div>
+          <div id="searchSection" class="section">
+            <div style="display: flex; gap: 4px; align-items: center">
+              <input
+                type="text"
+                id="userSearchInput"
+                class="search-field"
+                placeholder="Найти по нику"
+              />
+              <button
+                id="userSearchBtn"
+                class="btn secondary"
+                style="padding: 8px"
+              >
+                🔍
+              </button>
+            </div>
+            <div id="searchResults"></div>
+          </div>
+          <button
+            id="closeMenuBtn"
+            class="btn secondary"
+            style="margin-top: 12px"
+          >
+            Закрыть
+>>>>>>> f7b72ac90dfe668b0bdbed3e54cea5cbb549e539
+          </button>
+        </div>
+      </div>
+
+      <main class="content">
+        <div id="placesList" class="places-list">
+          <p>Загрузка локаций...</p>
+        </div>
+      </main>
+
+      <div id="profileModal" class="modal hidden">
+        <div class="modal-content">
+<<<<<<< HEAD
+          <button id="secretEyeBtn" class="secret-eye-btn" type="button" aria-label="Unlock hidden locations">
+            <span class="secret-eye-shape"></span>
+            <span class="secret-eye-pupil"></span>
+          </button>
+          <button class="modal-close-btn" id="profileCloseBtn">✕</button>
+=======
+>>>>>>> f7b72ac90dfe668b0bdbed3e54cea5cbb549e539
+          <h2></h2>
+          <div class="profile-card">
+            <label for="avatarInput" class="avatar-upload">
+              <img
+                id="profileAvatar"
+                src="https://via.placeholder.com/120x120/fff5f5/ffd700?text=🐱"
+                alt="Blondi"
+                class="profile-avatar"
+              />
+              <div class="upload-overlay">📸<br />Нажми для смены</div>
+            </label>
+            <input
+              type="file"
+              id="avatarInput"
+              accept="image/*"
+              style="display: none"
+            />
+
+            <div class="profile-info">
+              <div class="profile-nickname" id="profileNickname">Blondi</div>
+              <input
+                type="text"
+                id="nicknameInput"
+                placeholder="Новое имя..."
+                class="nickname-edit"
+              />
+            </div>
+          </div>
+          <div class="favorites-section">
+            <h3>Избранные локации</h3>
+            <div id="favoritesList" class="favorites-list">
+              <p>Звёздочки появятся после добавления.</p>
+            </div>
+          </div>
+          <label>
+            Photos
+            <input
+              type="file"
+              id="locationPhotos"
+              accept="image/*"
+              multiple
+            />
+            <span style="font-size: 13px; color: #999">
+              You can attach a few photos to help moderation.
+            </span>
+          </label>
+          <div class="modal-actions">
+            <div class="modal-actions-row">
+              <button id="saveProfile" class="btn primary">💾 Сохранить</button>
+              <button
+                id="logoutBtn"
+                class="btn secondary"
+                onclick="window.location.href = '/logout'"
+              >
+                🚪 Выйти
+              </button>
+            </div>
+            <div class="modal-actions-row">
+              <button id="deleteAccountBtn" class="btn danger">
+                🗑️ Удалить аккаунт
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="secretFlash" class="secret-flash"></div>
+
+      <div id="suggestModal" class="modal hidden">
+        <div class="modal-content">
+          <h2>➕ Новый город</h2>
+          <label>
+            Название города
+            <input
+              type="text"
+              id="newCityName"
+              placeholder="Казань, Екатеринбург..."
+            />
+          </label>
+          <div class="modal-actions">
+            <button id="cancelBtn" class="btn secondary">❌ Отмена</button>
+            <button id="submitBtn" class="btn primary">
+              ✅ Предложить город
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="locationModal" class="modal hidden">
+        <div class="modal-content">
+          <h2>➕ Новая локация</h2>
+          <label>
+            Город
+            <div class="city-select-container">
+              <select id="locationCity" required>
+                <option value="">Выбери город...</option>
+                <option value="novosibirsk">Новосибирск</option>
+                <option value="moscow">Москва</option>
+                <option value="spb">Санкт-Петербург</option>
+              </select>
+            </div>
+          </label>
+          <label>
+            Название
+            <input
+              type="text"
+              id="locationTitle"
+              placeholder="Красная площадь"
+              required
+            />
+          </label>
+          <label>
+            Описание
+            <textarea
+              id="locationDesc"
+              placeholder="Красивое место..."
+              required
+            ></textarea>
+          </label>
+          <label>
+            Темы (выберите несколько)
+            <div
+              style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px"
+            >
+              <label style="display: flex; align-items: center; gap: 6px">
+                <input type="checkbox" class="theme-select" value="popular" />
+                Popular
+              </label>
+              <label style="display: flex; align-items: center; gap: 6px">
+                <input type="checkbox" class="theme-select" value="culture" />
+                Culture
+              </label>
+              <label style="display: flex; align-items: center; gap: 6px">
+                <input
+                  type="checkbox"
+                  class="theme-select"
+                  value="for-photos"
+                />
+                For Photos
+              </label>
+              <label style="display: flex; align-items: center; gap: 6px">
+                <input
+                  type="checkbox"
+                  class="theme-select"
+                  value="restaurant"
+                />
+                Restaurant
+              </label>
+              <label style="display: flex; align-items: center; gap: 6px">
+                <input type="checkbox" class="theme-select" value="yum" /> Yum
+              </label>
+              <label style="display: flex; align-items: center; gap: 6px">
+<<<<<<< HEAD
+                <input type="checkbox" class="theme-select" value="нишевые" /> Нишевые
+              </label>
+              <label style="display: flex; align-items: center; gap: 6px">
+                <input type="checkbox" class="theme-select" value="бары" /> Бары
+              </label>
+            </div>
+            <div
+              style="
+                margin-top: 12px;
+                display: flex;
+                gap: 8px;
+                align-items: center;
+              "
+            >
+              <label
+                style="display: flex; align-items: center; gap: 6px; flex: 1"
+              >
+                <span style="font-size: 14px; color: #999"
+                  >Write your own:</span
+                >
+                <input
+                  type="text"
+                  id="customTheme"
+                  placeholder="Other theme"
+                  style="
+                    flex: 1;
+                    padding: 6px 10px;
+                    border-radius: 6px;
+                    border: 1px solid #444;
+                    background: #1a1a1a;
+                    color: #fff;
+                    font-size: 14px;
+                  "
+                />
+              </label>
+=======
+                <input type="checkbox" id="themeOtherCheckbox" value="other" />
+                Другое
+              </label>
+              <input
+                type="text"
+                id="themeOtherInput"
+                placeholder="Укажите тему"
+                class="hidden"
+                style="width: 100%; margin-top: 4px"
+              />
+>>>>>>> f7b72ac90dfe668b0bdbed3e54cea5cbb549e539
+            </div>
+          </label>
+          <div class="modal-actions">
+            <button id="locationCancel" class="btn secondary">❌ Отмена</button>
+            <button id="locationSubmit" class="btn primary">
+              ✅ Предложить
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="placeModal" class="place-modal hidden">
+        <div class="place-modal-overlay" onclick="closePlaceModal()">
+          <div class="place-modal-content" onclick="event.stopPropagation()">
+            <button id="shareLocationBtn" class="share-location-icon">↗</button>
+            <div class="place-gallery">
+              <button class="gallery-prev" onclick="changePhoto(-1)">❮</button>
+              <img id="placePhotoMain" src="" alt="" />
+              <button class="gallery-next" onclick="changePhoto(1)">❯</button>
+              <div id="photoCounter" class="photo-counter">1/1</div>
+            </div>
+            <div class="place-info">
+              <h2 id="placeTitleModal"></h2>
+              <p id="placeDescModal"></p>
+              <div id="placeMap" class="place-map">🗺️ Карта скоро появится</div>
+              <button onclick="closePlaceModal()" class="place-close-btn">
+                ✕ Закрыть
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="map-view" id="mapView">
+        <div class="map-view-header">
+          <h2 id="mapViewTitle">Map - Novosibirsk</h2>
+          <button class="map-close-btn" onclick="closeMapView()">✕</button>
+        </div>
+        <div id="mapViewContainer"></div>
+      </div>
+
+      <div class="search-view" id="searchView">
+        <div class="search-panel">
+          <div class="search-panel-top">
+            <h2>Search users</h2>
+            <button class="map-close-btn" onclick="closeSearchView()">✕</button>
+          </div>
+          <div class="search-input-wrapper">
+            <input
+              type="text"
+              id="userSearchInput"
+              placeholder="Search by name or nickname"
+            />
+          </div>
+          <div id="searchResults" class="search-results">
+            <p style="color:#888; padding: 10px 0;">Type to search users...</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-view" id="gameView">
+        <div class="game-panel">
+          <div class="game-panel-top">
+            <h2>Games</h2>
+            <button class="map-close-btn" onclick="closeGameView()">✕</button>
+          </div>
+          <div class="game-tabs">
+            <button class="game-tab active" data-game="ratDen">Rat Den</button>
+            <button class="game-tab" data-game="blockBlast">Block Blast</button>
+            <button class="game-tab" data-game="sudoku">Sudoku</button>
+          </div>
+          <div class="game-card">
+            <div class="game-card-header">
+              <div>
+                <h3 id="gameTitle">Rat Den</h3>
+                <p id="gameDesc"> </p>
+              </div>
+              <div class="game-stats">
+                <span><span class="game-stat-label" id="gameStatLabel">Caught</span><strong id="gameScore">0</strong></span>
+              </div>
+            </div>
+            <div class="game-canvas-wrapper">
+              <canvas id="gameCanvas"></canvas>
+            </div>
+            <div id="gameDomArea" class="game-dom-area"></div>
+            <div class="game-actions">
+              <button id="startGameBtn" class="add-friend-btn">Start</button>
+              <button id="pauseGameBtn" class="add-friend-btn">Pause</button>
+              <button id="resetGameBtn" class="add-friend-btn">Restart</button>
+            </div>
+            <div class="game-info">
+              <span id="gameStatus">Press Start Hunt. Watch the black screen and catch the rat.</span>
+            </div>
+            <div id="blockTray" class="game-tray"></div>
+            <div id="sudokuPad" class="game-tray"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <button id="chatsNavBtn" class="nav-button">
+          <span class="nav-icon">💬</span>
+          <span class="nav-label">Chats</span>
+        </button>
+        <button id="feedNavBtn" class="nav-button active">
+          <span class="nav-icon">🌍</span>
+          <span class="nav-label">Feed</span>
+        </button>
+        <button id="mapNavBtn" class="nav-button">
+          <span class="nav-icon">🗺️</span>
+          <span class="nav-label">Map</span>
+        </button>
+        <button id="profileNavBtn" class="nav-button">
+          <span class="nav-icon">👤</span>
+          <span class="nav-label">Profile</span>
+        </button>
+      </div>
+    </div>
+
+    <script src="/static/snake-game.js"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+      function normalizePhotos(photos) {
+        return photos.map((p) => (p.startsWith("http") ? p : p));
+      }
+      const tg = window.Telegram.WebApp;
+      if (tg) {
+        tg.ready();
+        const user = tg.initDataUnsafe?.user || { id: "guest" };
+        tg.expand();
+      }
+
+      let favoritesSet = new Set();
+      let secretUnlocked = localStorage.getItem("secretLocationsUnlocked") === "true";
+
+      async function loadFavorites() {
+        try {
+          const response = await fetch("/api/favorite_locations");
+          console.log("Response status:", response.status);
+          if (!response.ok) {
+            console.error("API error:", response.status);
+            return;
+          }
+          const data = await response.json();
+          console.log("Favorites loaded:", data);
+          if (Array.isArray(data)) {
+            favoritesSet = new Set(data);
+          }
+        } catch (e) {
+          console.error("Cannot load favorites", e);
+        }
+      }
+
+      function updateFavoritesList() {
+        const container = document.getElementById("favoritesList");
+        if (!container) return;
+
+        if (favoritesSet.size === 0) {
+          container.innerHTML = "<p>Нет избранных локаций</p>";
+          return;
+        }
+
+        container.innerHTML = "";
+        favoritesSet.forEach((title) => {
+          const el = document.createElement("div");
+          el.className = "favorite-item";
+          el.innerHTML = `<span>${title}</span><button title="Удалить из избранного">★</button>`;
+          el.addEventListener("click", async (event) => {
+            if (event.target.tagName === "BUTTON") {
+              return;
+            }
+            const place = findPlaceByTitle(title);
+            if (place) {
+              profileModal.classList.add("hidden");
+              openPlaceModal(place);
+            }
+          });
+          const removeBtn = el.querySelector("button");
+          removeBtn.onclick = async (e) => {
+            e.stopPropagation();
+            await fetch("/api/favorite_locations", {
+              method: "DELETE",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ title }),
+            });
+            favoritesSet.delete(title);
+            updateFavoritesList();
+            showPlaces(currentCity, currentTheme);
+          };
+          container.appendChild(el);
+        });
+      }
+
+      function findPlaceByTitle(title) {
+        for (const city in placesData) {
+          if (!Array.isArray(placesData[city])) continue;
+          const place = placesData[city].find((item) => item.title === title);
+          if (place) {
+            return place;
+          }
+        }
+        return null;
+      }
+
+      const profileNavBtn = document.getElementById("profileNavBtn");
+      const chatsNavBtn = document.getElementById("chatsNavBtn");
+      const feedNavBtn = document.getElementById("feedNavBtn");
+      const mapNavBtn = document.getElementById("mapNavBtn");
+      const profileModal = document.getElementById("profileModal");
+      const profileAvatar = document.getElementById("profileAvatar");
+      const secretEyeBtn = document.getElementById("secretEyeBtn");
+      const favoritesBtn = document.getElementById("favoritesBtn");
+      const burgerMenu = document.getElementById("burgerMenu");
+      const gamesBtn = document.getElementById("gamesBtn");
+
+      if (secretUnlocked && secretEyeBtn) {
+        secretEyeBtn.classList.add("unlocked");
+      }
+
+      if (secretEyeBtn) {
+        secretEyeBtn.onclick = (event) => {
+          event.stopPropagation();
+          toggleSecretLocations();
+        };
+      }
+
+      async function showFavorites() {
+        closeMapView();
+        closeSearchView();
+        closeGameView();
+        await loadFavorites();
+        const placesList = document.getElementById("placesList");
+        if (favoritesSet.size === 0) {
+          placesList.innerHTML =
+            "<p>Нет избранных локаций. Пометьте звездочкой места на карте.</p>";
+        } else {
+          const favArray = Array.from(favoritesSet);
+          placesList.innerHTML = favArray
+            .map(
+              (title) =>
+                `\n                  <div class="place-card favorite-place-card" data-title="${title}" style="cursor: pointer;">\n                    <div class="place-card-content">\n                      <div class="place-card-title">${title}</div>\n                    </div>\n                  </div>\n                `,
+            )
+            .join("");
+          document.querySelectorAll('.favorite-place-card').forEach((card) => {
+            card.onclick = () => {
+              const title = card.dataset.title;
+              const place = findPlaceByTitle(title);
+              if (place) {
+                openPlaceModal(place);
+              }
+            };
+          });
+        }
+        burgerMenu.classList.remove("open");
+      }
+
+      favoritesBtn.onclick = showFavorites;
+      const profileNickname = document.getElementById("profileNickname");
+      const nicknameInput = document.getElementById("nicknameInput");
+      const avatarInput = document.getElementById("avatarInput");
+      const profileCloseBtn = document.getElementById("profileCloseBtn");
+      const saveProfile = document.getElementById("saveProfile");
+      const deleteAccountBtn = document.getElementById("deleteAccountBtn");
+
+      let currentAvatar =
+        "{{ current_user.avatar }}" ||
+        "https://via.placeholder.com/120x120/fff5f5/ffd700?text={{ current_user.nickname[0].upper() }}";
+      let currentNickname = document.body.dataset.userName || "";
+      let currentUserId = Number(document.body.dataset.userId) || null;
+
+      profileAvatar.src = currentAvatar;
+      profileNickname.textContent = currentNickname;
+      nicknameInput.value = currentNickname;
+
+      let mapViewInstance = null;
+
+      const feedContent = document.querySelector('.content');
+
+      function closeMapView() {
+        const mapView = document.getElementById("mapView");
+        mapView.classList.remove("active");
+        if (mapViewInstance) {
+          mapViewInstance.remove();
+          mapViewInstance = null;
+        }
+        if (feedContent) {
+          feedContent.style.display = "block";
+        }
+      }
+
+      function openMapView() {
+        closeSearchView();
+        closeGameView();
+        burgerMenu.classList.remove("open");
+        const mapView = document.getElementById("mapView");
+        mapView.classList.add("active");
+        if (feedContent) {
+          feedContent.style.display = "none";
+        }
+
+        const cityNames = {
+          novosibirsk: "Novosibirsk",
+          moscow: "Moscow",
+          spb: "Saint Petersburg",
+        };
+        document.getElementById("mapViewTitle").textContent =
+          "Map - " + (cityNames[currentCity] || "City");
+
+        profileModal.classList.add("hidden");
+        document
+          .querySelectorAll(".modal")
+          .forEach((m) => m.classList.add("hidden"));
+
+        setTimeout(() => {
+          const container = document.getElementById("mapViewContainer");
+          if (container) {
+            if (mapViewInstance) {
+              mapViewInstance.remove();
+              mapViewInstance = null;
+            }
+
+            container.innerHTML = "";
+
+            const cityCoordinates = {
+              novosibirsk: [55.0415, 82.9346],
+              moscow: [55.7558, 37.6173],
+              spb: [59.9311, 30.3609],
+            };
+
+            const centerCoords = cityCoordinates[currentCity] || [55.0415, 82.9346];
+
+            mapViewInstance = L.map(container).setView(centerCoords, 12);
+
+            // Add OpenStreetMap tiles
+            L.tileLayer(
+              "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+              {
+                attribution: "© OpenStreetMap contributors",
+                maxZoom: 19,
+              },
+            ).addTo(mapViewInstance);
+
+            // Add markers for all locations in current city
+            const places = getVisiblePlaces(currentCity);
+            places.forEach((place) => {
+              if (place.coords) {
+                L.marker(place.coords)
+                  .addTo(mapViewInstance)
+                  .bindPopup(
+                    `<div style="color: #fff; font-weight: 600;">${place.title}${isSecretPlace(place) ? ' ¿' : ''}</div><div style="color: #ccc; font-size: 12px;">${place.desc}</div>`,
+                  );
+              }
+            });
+          }
+        }, 100);
+      }
+
+      function closeSearchView() {
+        const searchView = document.getElementById("searchView");
+        searchView.classList.remove("active");
+        if (feedContent) {
+          feedContent.style.display = "block";
+        }
+      }
+
+      function closeGameView() {
+        const gameView = document.getElementById("gameView");
+        gameView.classList.remove("active");
+        if (feedContent) {
+          feedContent.style.display = "block";
+        }
+        if (window.GameManager) {
+          window.GameManager.pause();
+        }
+      }
+
+      function openGameView() {
+        const gameView = document.getElementById("gameView");
+        closeMapView();
+        closeSearchView();
+        burgerMenu.classList.remove("open");
+        gameView.classList.add("active");
+        if (feedContent) {
+          feedContent.style.display = "none";
+        }
+        profileModal.classList.add("hidden");
+        document.querySelectorAll(".modal").forEach((m) => m.classList.add("hidden"));
+        if (window.GameManager) {
+          window.GameManager.init();
+          window.GameManager.resizeCanvas();
+        }
+      }
+
+      async function renderSearchResults(query = "") {
+        if (!query.trim()) {
+          searchResults.innerHTML =
+            '<p style="color:#888; padding: 10px 0;">Type to search users...</p>';
+          return;
+        }
+
+        try {
+          const response = await fetch(
+            `/api/search_users?q=${encodeURIComponent(query.trim())}`,
+          );
+          const results = await response.json();
+          if (!Array.isArray(results) || !results.length) {
+            searchResults.innerHTML =
+              '<p style="color:#888; padding: 10px 0;">No users found</p>';
+            return;
+          }
+
+          searchResults.innerHTML = results
+            .map(
+              (user) => `
+                <div class="user-card">
+                  <div class="user-card-info">
+                    <div class="user-card-name">${user.name}</div>
+                    <div class="user-card-nickname">@${user.nickname}</div>
+                  </div>
+                  <button
+                    class="add-friend-btn ${requestedFriends.has(user.id) ? 'requested' : ''}"
+                    data-user-id="${user.id}"
+                  >
+                    ${requestedFriends.has(user.id) ? 'Requested' : 'Add friend'}
+                  </button>
+                </div>
+              `,
+            )
+            .join("");
+
+          document.querySelectorAll(".add-friend-btn").forEach((btn) => {
+            btn.onclick = async () => {
+              const id = Number(btn.dataset.userId);
+              if (requestedFriends.has(id)) return;
+              try {
+                const response = await fetch("/api/friend_request", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ friend_id: id }),
+                });
+                if (response.ok) {
+                  requestedFriends.add(id);
+                  btn.classList.add("requested");
+                  btn.textContent = "Requested";
+                }
+              } catch (err) {
+                console.error(err);
+              }
+            };
+          });
+        } catch (err) {
+          console.error(err);
+          searchResults.innerHTML =
+            '<p style="color:#888; padding: 10px 0;">Search failed</p>';
+        }
+      }
+
+      function openSearchView() {
+        const searchView = document.getElementById("searchView");
+        closeMapView();
+        closeGameView();
+        burgerMenu.classList.remove("open");
+        searchView.classList.add("active");
+        if (feedContent) {
+          feedContent.style.display = "none";
+        }
+        profileModal.classList.add("hidden");
+        document.querySelectorAll(".modal").forEach((m) => m.classList.add("hidden"));
+        userSearchInput.value = "";
+        renderSearchResults("");
+      }
+
+      function applyInitialRouteState() {
+        const params = new URLSearchParams(window.location.search);
+        const view = params.get("view");
+        const favorite = params.get("favorite");
+
+        if (view === "map") {
+          openMapView();
+        } else if (view === "games") {
+          openGameView();
+        } else if (view === "favorites") {
+          showFavorites();
+        }
+
+        if (favorite) {
+          const place = findPlaceByTitle(favorite);
+          if (place) {
+            openPlaceModal(place);
+          }
+        }
+
+        if (view || favorite) {
+          window.history.replaceState({}, "", "/");
+        }
+      }
+
+      mapNavBtn.onclick = openMapView;
+      const searchBtn = document.getElementById("searchBtn");
+      const searchView = document.getElementById("searchView");
+      const userSearchInput = document.getElementById("userSearchInput");
+      const searchResults = document.getElementById("searchResults");
+      const requestedFriends = new Set();
+
+      searchBtn.onclick = openSearchView;
+      gamesBtn.onclick = openGameView;
+      userSearchInput.oninput = (e) => {
+        renderSearchResults(e.target.value);
+      };
+
+      profileNavBtn.onclick = () => {
+        window.location.href = "/profile";
+      };
+      chatsNavBtn.onclick = () => (window.location.href = "/chats");
+      feedNavBtn.onclick = () => {
+        profileModal.classList.add("hidden");
+        document
+          .querySelectorAll(".modal")
+          .forEach((m) => m.classList.add("hidden"));
+        closeMapView();
+        closeSearchView();
+        closeGameView();
+      };
+
+      const shareLocationBtn = document.getElementById("shareLocationBtn");
+      shareLocationBtn.onclick = () => {
+        if (currentPlace) {
+          localStorage.setItem('shareLocation', JSON.stringify(currentPlace));
+          window.location.href = '/chats';
+        }
+      };
+
+      profileCloseBtn.onclick = () => {
+        profileModal.classList.add("hidden");
+        if (feedContent) {
+          feedContent.style.display = "block";
+        }
+      };
+
+      profileModal.onclick = (e) => {
+        if (e.target === profileModal) {
+          profileModal.classList.add("hidden");
+        }
+      };
+
+      avatarInput.onchange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const img = new Image();
+            img.onload = () => {
+              const canvas = document.createElement("canvas");
+              canvas.width = 120;
+              canvas.height = 120;
+              const ctx = canvas.getContext("2d");
+
+              ctx.clearRect(0, 0, 120, 120);
+              ctx.beginPath();
+              ctx.arc(60, 60, 60, 0, Math.PI * 2);
+              ctx.clip();
+
+              ctx.drawImage(img, 0, 0, 120, 120);
+
+              const newAvatar = canvas.toDataURL("image/jpeg", 0.9);
+              profileAvatar.src = newAvatar;
+              headerAvatar.src = newAvatar;
+              currentAvatar = newAvatar;
+            };
+            img.src = e.target.result;
+          };
+          reader.readAsDataURL(file);
+        }
+      };
+
+      saveProfile.onclick = async () => {
+        const newNickname = nicknameInput.value.trim();
+        if (!newNickname) {
+          alert("❌ Никнейм не может быть пустым!");
+          return;
+        }
+
+        try {
+          const response = await fetch("/update-profile", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              nickname: newNickname,
+              avatar: currentAvatar,
+            }),
+          });
+
+          if (response.ok) {
+            profileNickname.textContent = newNickname;
+            currentNickname = newNickname;
+            alert("✅ Профиль сохранен!");
+            profileModal.classList.add("hidden");
+          } else {
+            alert("❌ Ошибка сохранения профиля!");
+          }
+        } catch (error) {
+          alert("❌ Ошибка сети!");
+        }
+      };
+
+      deleteAccountBtn.onclick = () => {
+        if (
+          confirm(
+            "Вы уверены, что хотите удалить аккаунт? Это действие нельзя отменить.",
+          )
+        ) {
+          fetch("/delete-account", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+          }).then(() => {
+            window.location.href = "/register";
+          });
+        }
+      };
+
+      const placesData = {
+        moscow: [
+          {
+            title: "Хлебозавод № 9",
+<<<<<<< HEAD
+            desc: "...и дизайн завод /Новодмитровская улица, 1 ст1",
+            themes: ["culture", "for-photos"],
+            coords: [55.7518, 37.6255],
+=======
+            desc: "Культурный центр",
+            themes: ["culture", "for-photos"],
+>>>>>>> f7b72ac90dfe668b0bdbed3e54cea5cbb549e539
+            photos: [
+              "/static/photos/moscow/hlebz2.jpg",
+              "/static/photos/moscow/hlebz3.jpg",
+              "/static/photos/moscow/hlebz4.jpg",
+              "/static/photos/moscow/hlebz1.jpg",
+              "/static/photos/moscow/hlebz5.png",
+              "/static/photos/moscow/hlebz6.png",
+              "/static/photos/moscow/hlebz7.png",
+              "/static/photos/moscow/hlebz8.png",
+            ],
+          },
+          {
+            title: "Набережная ЖК Береговой",
+            desc: "Набережная жилого комплекса Береговой",
+            themes: ["popular", "for-photos"],
+            coords: [55.7440, 37.5270],
+            photos: [
+              "/static/photos/moscow/nabber1.jpg",
+              "/static/photos/moscow/nabber2.jpg",
+              "/static/photos/moscow/nabber3.jpg",
+              "/static/photos/moscow/nabber4.jpg",
+              "/static/photos/moscow/nabber5.jpg",
+              "/static/photos/moscow/nabber6.jpg",
+              "/static/photos/moscow/nabber7.jpg",
+              "/static/photos/moscow/nabber8.jpg",
+              "/static/photos/moscow/nabber9.jpg",
+            ],
+          },
+         {
+            title: "ресторан SIXTY",
+            desc: "один из самых высоких ресторанов в Европе",
+            themes: ["restaurant", "yum", "for photos"],
+            coords: [55.7492, 37.5286],
+            photos: [
+              "/static/photos/moscow/sixty1.png",
+              "/static/photos/moscow/sixty2.png",
+              "/static/photos/moscow/sixty3.png",
+              "/static/photos/moscow/sixty4.png",
+              "/static/photos/moscow/sixty5.png",
+            ],
+          },
+          {
+            title: "Panorama360",
+            desc: "На 89 этаже Башни «Федерация. Восток» - с самой высокой фабрикой мороженого",
+            themes: ["for-photos", "popular"],
+            coords: [55.7492, 37.5286],
+            photos: [
+              "/static/photos/moscow/360.1.png",
+              "/static/photos/moscow/360.2.jpg",
+              "/static/photos/moscow/360.3.jpg",
+              "/static/photos/moscow/360.4.jpg",
+            ],
+          },
+          {
+            title: "Завод Арма",
+            desc: "Адрес: Нижний Сусальный переулок, 5 (метро «Курская», «Чкаловская",
+            themes: ["leisure"],
+            coords: [55.771428, 37.655706],
+            photos: [
+              "/static/photos/moscow/arma1.jpg",
+              "/static/photos/moscow/arma2.jpg",
+              "/static/photos/moscow/arma3.jpg",
+            ],
+          },
+          {
+            title: "Neighborhood Bar",
+            desc: "Мясницкая улица, 14/2с1",
+            themes: ["restaurant", "yum", "leisure"],
+            coords: [55.7621, 37.6357],
+            secret: true,
+            photos: [
+              "/static/photos/moscow/nbh.webp",
+              "/static/photos/moscow/nbh1.webp",
+              "/static/photos/moscow/nbh2.webp",
+              "/static/photos/moscow/nbh3.webp",
+              "/static/photos/moscow/nbhd.webp",
+              "/static/photos/moscow/nbhd1.webp",
+              "/static/photos/moscow/nbhd2.webp",
+              "/static/photos/moscow/nbhd4.webp",
+            ],
+          },
+          {
+            title: "Презервативная",
+            desc: "Мясницкая ул., 16",
+            themes: ["culture", "for-photos"],
+            coords: [55.7626, 37.6361],
+            secret: true,
+            photos: [
+              "/static/photos/moscow/prv.jpg",
+              "/static/photos/moscow/prv2.jpg",
+            ],
+          },
+          {
+            title: "Skuratov Coffee",
+            desc: "Мясницкая, 13 стр.2",
+            themes: ["yum", "popular"],
+            coords: [55.7623, 37.6352],
+            photos: [
+              "/static/photos/skuratov.svg",
+            ],
+          },
+        ],
+        spb: [
+          {
+            title: "Анненкирхе",
+<<<<<<< HEAD
+            desc: "Кирочная улица, 8 лит В  Анненкирхе (от нем. Annenkirche, Annen — Анна, kirche — церковь ) — лютеранская церковь Святой Анны в Санкт-Петербурге с 300-летней историей, которая меняет традиционные представления о храмах. кирха превратилась в культурное место, куда можно прийти не только на богослужение, но и на живой оркестровый концерт или выставку. /искусство/ христианский мерч/ Церковь, в которую хочется возвращаться",
+            themes: ["culture"],
+            coords: [59.9447, 30.3519],
+=======
+            desc: "Лютеранская церковь",
+            themes: ["culture"],
+>>>>>>> f7b72ac90dfe668b0bdbed3e54cea5cbb549e539
+            photos: [
+              "/static/photos/spb/annen1.jpg",
+              "/static/photos/spb/annen2.jpg",
+              "/static/photos/spb/annen3.jpeg",
+              "/static/photos/spb/annen4.jpg",
+              "/static/photos/spb/annen5.jpg",
+              "/static/photos/spb/annen6.jpg",
+            ],
+          },
+          {
+<<<<<<< HEAD
+            title: "Бертгольд центр",
+            desc: "Гражданская улица, 13-15",
+            themes: ["popular", "culture", "for-photos", "restaurant", "yum"],
+            coords: [59.928158, 30.312481],
+            photos: [
+              "/static/photos/spb/бертгольд1.png",
+              "/static/photos/spb/бертгольд2.png",
+              "/static/photos/spb/бертгольд3.png",
+              "/static/photos/spb/бертгольд4.png",
+              "/static/photos/spb/бертгольд5.png",
+              "/static/photos/spb/бертгольд6.png",
+              "/static/photos/spb/бертгольд7.png",
+              "/static/photos/spb/бертгольд8.png",
+              "/static/photos/spb/бертгольд9.png",
+              "/static/photos/spb/бертгольд10.png",
+              "/static/photos/spb/бертгольд11.png",
+              "/static/photos/spb/бертгольд12.png",
+            ],
+          },
+          {
+            title: "VOKZAL 1853",
+            desc: " крупнейший фудмолл в России и Европе, расположенный в историческом здании бывшего Варшавского вокзала на набережной Обводного канала, 118",
+            themes: ["culture","restaurant", "yum"],
+            coords: [59.90715453204116,30.307245128374078],
+            photos: [
+              "/static/photos/spb/vkz1.png",
+              "/static/photos/spb/vkz2.jpg",
+              "/static/photos/spb/vkz3.jpg",
+              "/static/photos/spb/vkz4.png",
+              "/static/photos/spb/vkz5.jpg",
+              "/static/photos/spb/vkz6.jpg",
+              "/static/photos/spb/vkz7.png",
+              "/static/photos/spb/vkz8.png",
+              "/static/photos/spb/vkz9.png",
+              "/static/photos/spb/vkz10.jpg",
+              "/static/photos/spb/vkz11.jpg",
+              "/static/photos/spb/vkz12.jpg",
+              "/static/photos/spb/vkz13.png",
+              "/static/photos/spb/vkz14.jpg",
+            ],
+          },
+          {
+            title: "Севкабель Порт",
+            desc: "Кожевенная линия, 40Б, Санкт-Петербург",
+            themes: ["for-photos", "popular", "leisure"],
+            coords: [59.9733, 30.2938],
+            photos: [
+              "/static/photos/spb/svk1.jpg",
+              "/static/photos/spb/svk2.jpg",
+              "/static/photos/spb/svk3.png",
+              "/static/photos/spb/svk4.jpg",
+              "/static/photos/spb/svk5.jpg",
+              "/static/photos/spb/svk6.jpg",
+            ],
+          },
+          {
+            title: "Эрарта",
+            desc: "Эрарта — крупнейший частный музей современного искусства в России (Васильевский остров, 29-я линия, дом 2)",
+            themes: ["culture", "for-photos"],
+            coords: [59.9226, 30.2554],
+            photos: [
+              "/static/photos/spb/erarta2.jpg",
+              "/static/photos/spb/erarta3.png",
+              "/static/photos/spb/erarta4.jpg",
+              "/static/photos/spb/er5.jpg",
+            ],
+          },
+          {
+            title: "Новая Голландия",
+            desc: "Кластер расположен в Адмиралтейском районе на острове, возникшем при Петре Первом/ памятник промышленной архитектуры XVIII века /популярное общественное пространство для отдыха, прогулок и мероприятий/ c корпусами бывших морских складов и тюрьмой, известной как «Бутылка»",
+            themes: ["popular", "culture", "for-photos", "leisure"],
+            coords: [59.9339, 30.3117],
+            photos: [
+              "/static/photos/spb/ng1.jpg",
+              "/static/photos/spb/ng2.jpg",
+              "/static/photos/spb/ng3.png",
+              "/static/photos/spb/ng4.jpg",
+              "/static/photos/spb/ng5.jpg",
+              "/static/photos/spb/ng6.jpg",
+              "/static/photos/spb/ng7.jpg",
+              "/static/photos/spb/ng8.jpg",
+              "/static/photos/spb/ng9.png",
+              "/static/photos/spb/ng10.jpg",
+              "/static/photos/spb/ng11.png",
+              "/static/photos/spb/ng12.jpg",
+              "/static/photos/spb/ng13.png",
+            ],
+          },
+          {
+            title: "Шоколадная фабрика Счастье",
+            desc: "...",
+            themes: ["culture", "for-photos", "popular", "yum"],
+            coords: [59.9275, 30.3000],
+            photos: [
+              "/static/photos/spb/sc1.jpg",
+              "/static/photos/spb/sc2.jpg",
+              "/static/photos/spb/sc3.jpg",
+              "/static/photos/spb/sc4.jpg",
+              "/static/photos/spb/sc5.jpg",
+              "/static/photos/spb/sc6.jpg",
+            ],
+          },
+          {
+            title: "Humbl Cookies",
+            desc: " Лиговский проспект, 58  *  Ломоносова, ул. 12/66  *  Ефимова, 2  *  Грибоедова, ул. 23  *  наб. Обводного канала, 118С   ",
+            themes: ["food", "popular", "yum"],
+            coords: [59.928122, 30.33732],
+            photos: [
+              "/static/photos/spb/humble1.jpg",
+              "/static/photos/spb/humble2.jpg",
+              "/static/photos/spb/humble3.jpg",
+              "/static/photos/spb/hembl4.jpg",
+            ],
+          },
+          {
+            title: "The Buddy Cafe",
+            desc: " Ломоносова, 12/66  ",
+            themes: ["food", "popular", "leisure"],
+            coords: [59.928122, 30.33732],
+            photos: [
+              "/static/photos/spb/tb.jpg",
+            "/static/photos/spb/tbad.jpg",
+            "/static/photos/spb/tbad2.jpg",
+            "/static/photos/spb/tbad3.jpg",
+            "/static/photos/spb/tb.png",
+            ],
+          },
+          {
+            title: "Булочные Ф. Вольчека",
+            desc: "///",
+            themes: ["culture", "for-photos", "popular", "yum"],
+            coords: [59.9315, 30.3400],
+            photos: [
+              "/static/photos/spb/bv1.jpg",
+              "/static/photos/spb/bv2.jpg",
+            ],
+          },
+          {
+            title: "Skuratov Coffee",
+            desc: "Малая Посадская, 4а",
+            themes: ["yum", "popular"],
+            coords: [59.9583, 30.3198],
+            photos: [
+              "/static/photos/skuratov.svg",
+=======
+            title: "Исаакиевский собор",
+            desc: "Вид с колоннады",
+            themes: ["culture"],
+            photos: [
+              "https://via.placeholder.com/400x250/45b7d1/fff?text=Исаакий+1",
+              "https://via.placeholder.com/400x250/2980b9/fff?text=Исаакий+2",
+>>>>>>> f7b72ac90dfe668b0bdbed3e54cea5cbb549e539
+            ],
+          },
+        ],
+        novosibirsk: [
+          {
+            title: "Shredder Pizza",
+<<<<<<< HEAD
+            desc: "Коммунистическая улица, 45",
+            themes: ["yum", "popular"],
+            coords: [55.0388, 82.9297],
+=======
+            desc: "Пиццерия",
+            themes: ["yum", "popular"],
+>>>>>>> f7b72ac90dfe668b0bdbed3e54cea5cbb549e539
+            photos: [
+              "/static/photos/novosibirsk/shpizza1.jpg",
+              "/static/photos/novosibirsk/shpizza2.jpg",
+              "/static/photos/novosibirsk/shpizza3.jpg",
+            ],
+          },
+          {
+<<<<<<< HEAD
+            title: "Nobody Knows i Suppose",
+            desc: "Вдохновлённый портовыми плацдармами Лиссабона бар с авторской кухней, креплеными винами и атмосферой винилового проигрывателя.",
+            themes: ["нишевые", "бары"],
+            coords: [55.0290, 82.9210],
+            photos: [
+              "/static/photos/novosibirsk/nbk.jpg",
+            ],
+          },
+          {
+            title: "Harucha",
+            desc: "Проспект Карла Маркса, 24",
+            themes: ["popular"],
+            coords: [55.0289, 82.8869],
+            photos: [
+              "/static/photos/novosibirsk/haruf.jpg",
+              "/static/photos/novosibirsk/haru2.jpg",
+              "/static/photos/novosibirsk/haru1.jpg",
+              "/static/photos/novosibirsk/haru4.jpg",
+              "/static/photos/novosibirsk/haru3.jpg",
+              "/static/photos/novosibirsk/haru5.jpg",
+              "/static/photos/novosibirsk/haru.jpg",
+            ],
+          },
+          {
+            title: "Дворик Рукс",
+            desc: "коммунистическая улица, 45",
+            themes: ["yum", "popular", "for-photos"],
+            coords: [55.0200, 82.9000],
+            photos: [
+              "/static/photos/novosibirsk/kom45.1.jpg",
+              "/static/photos/novosibirsk/kom45.2.jpg",
+              "/static/photos/novosibirsk/kom45.3.jpg",
+              "/static/photos/novosibirsk/kom45.4.jpg",
+              "/static/photos/novosibirsk/kom45.5.jpg",
+              "/static/photos/novosibirsk/kom45.6.jpg",
+=======
+            title: "Harucha",
+            desc: "bubble tea bar",
+            themes: ["popular"],
+            photos: [
+              "/static/photos/novosibirsk/haruf.jpg",
+              "/static/photos/novosibirsk/haru2.jpg",
+              "/static/photos/novosibirsk/haru1.png",
+              "/static/photos/novosibirsk/haru4.jpg",
+              "/static/photos/novosibirsk/haru3.jpg",
+              "/static/photos/novosibirsk/haru5.jpg",
+              "/static/photos/novosibirsk/haru.png",
+>>>>>>> f7b72ac90dfe668b0bdbed3e54cea5cbb549e539
+            ],
+          },
+          {
+            title: "Оперный театр",
+<<<<<<< HEAD
+            desc: "Красный проспект, 36",
+            themes: ["culture"],
+            coords: [55.0079, 82.8952],
+=======
+            desc: "Рекорд Гиннесса",
+            themes: ["culture"],
+>>>>>>> f7b72ac90dfe668b0bdbed3e54cea5cbb549e539
+            photos: [
+              "/static/photos/novosibirsk/н1.jpg",
+              "/static/photos/novosibirsk/н2.jpg",
+              "/static/photos/novosibirsk/н3.jpg",
+            ],
+          },
+<<<<<<< HEAD
+          {
+            title: "Raccoon Cafe",
+            desc: "ул. Галущака, 4",
+            themes: ["popular", "leisure"],
+            coords: [55.0250, 82.8920],
+            photos: [
+              "/static/photos/novosibirsk/enot1.jpg",
+              "/static/photos/novosibirsk/enot2.jpg",
+              "/static/photos/novosibirsk/enot3.jpg",
+              "/static/photos/novosibirsk/enot4.jpg",
+            ],
+          },
+          {
+            title: "Рестодворик",
+            desc: "///",
+            themes: ["yum", "popular", "restaurant"],
+            coords: [55.0150, 82.8950],
+            photos: [
+              "/static/photos/novosibirsk/restDv2.jpg",
+              "/static/photos/novosibirsk/restDv4.jpg",
+            ],
+          },
+          {
+            title: "Skuratov Coffee",
+            desc: "Ленина, 25",
+            themes: ["yum", "popular"],
+            coords: [55.0306, 82.9229],
+            photos: [
+              "/static/photos/skuratov.svg",
+            ],
+          },
+=======
+>>>>>>> f7b72ac90dfe668b0bdbed3e54cea5cbb549e539
+        ],
+      };
+
+      let currentPlacePhotos = [];
+      let currentPhotoIndex = 0;
+      let currentCity = "novosibirsk";
+      let currentTheme = "all";
+      let leafletMap = null; 
+
+      function isSecretPlace(place) {
+        return place.secret === true ||
+          place.title === "Neighborhood Bar" ||
+          place.title === "Презервативная";
+      }
+
+      function getVisiblePlaces(city) {
+        const places = placesData[city] || [];
+        return secretUnlocked ? places : places.filter((place) => !isSecretPlace(place));
+      }
+
+      function toggleSecretLocations() {
+        secretUnlocked = !secretUnlocked;
+        localStorage.setItem("secretLocationsUnlocked", String(secretUnlocked));
+        const secretEyeBtn = document.getElementById("secretEyeBtn");
+        const secretFlash = document.getElementById("secretFlash");
+
+        if (secretEyeBtn) {
+          secretEyeBtn.classList.toggle("unlocked", secretUnlocked);
+        }
+
+        if (secretFlash) {
+          secretFlash.classList.remove("active");
+          void secretFlash.offsetWidth;
+          secretFlash.classList.add("active");
+          window.setTimeout(() => secretFlash.classList.remove("active"), 1000);
+        }
+
+        showPlaces(currentCity, currentTheme);
+        const mapView = document.getElementById("mapView");
+        if (mapView && mapView.classList.contains("active")) {
+          openMapView();
+        }
+      }
+
+      function showPlaces(city, theme = null) {
+        const placesList = document.getElementById("placesList");
+        const places = getVisiblePlaces(city);
+        let filteredPlaces = places;
+<<<<<<< HEAD
+        if (theme && theme !== "all")
+=======
+        if (theme)
+>>>>>>> f7b72ac90dfe668b0bdbed3e54cea5cbb549e539
+          filteredPlaces = places.filter(
+            (p) =>
+              p.theme === theme ||
+              (Array.isArray(p.themes) && p.themes.includes(theme)),
+          );
+
+        placesList.innerHTML = filteredPlaces.length
+          ? filteredPlaces
+              .map(
+                (p, index) => `
+<<<<<<< HEAD
+                  <div class="place-card clickable-card" data-index="${index}" data-theme="${p.theme || (p.themes ? p.themes.join(",") : "")}" style="position: relative;">
+                    <button class="save-location-btn" data-location="${p.title}" onclick="event.stopPropagation();">☆</button>
+                    <img src="${normalizePhotos(p.photos)[0]}" alt="${p.title}" loading="lazy">
+                    <div class="place-card-content">
+                      <div class="place-card-title">${p.title}${isSecretPlace(p) ? '<span class="secret-place-mark">¿</span>' : ''}</div>
+                      <div class="place-card-desc">${p.desc}</div>
+                    </div>
+                  </div>`,
+=======
+            <div class="place-card clickable-card" data-index="${index}" data-theme="${p.theme || (p.themes ? p.themes.join(",") : "")}">
+             <img src="${normalizePhotos(p.photos)[0]}" alt="${p.title}" loading="lazy">
+              <div class="place-card-content">
+                <div class="place-card-title">${p.title}</div>
+                <div class="place-card-desc">${p.desc}</div>
+              </div>
+            </div>`,
+>>>>>>> f7b72ac90dfe668b0bdbed3e54cea5cbb549e539
+              )
+              .join("")
+          : "<p>Локации в теме скоро появятся</p>";
+
+        document.querySelectorAll(".clickable-card").forEach((card, index) => {
+          card.style.cursor = "pointer";
+          card.onclick = (e) => {
+            e.stopPropagation();
+            const place = filteredPlaces[index];
+            openPlaceModal(place);
+          };
+        });
+
+        document.querySelectorAll(".save-location-btn").forEach((btn) => {
+          const title = btn.dataset.location;
+          if (favoritesSet.has(title)) {
+            btn.classList.add("saved");
+            btn.textContent = "★";
+          } else {
+            btn.classList.remove("saved");
+            btn.textContent = "☆";
+          }
+
+          btn.onclick = async (e) => {
+            e.stopPropagation();
+            const isCurrentlySaved = btn.classList.contains("saved");
+
+            if (isCurrentlySaved) {
+              const resp = await fetch("/api/favorite_locations", {
+                method: "DELETE",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ title }),
+              });
+              const data = await resp.json();
+              if (data.success) {
+                favoritesSet.delete(title);
+                btn.classList.remove("saved");
+                btn.textContent = "☆";
+              }
+            } else {
+              const resp = await fetch("/api/favorite_locations", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ title }),
+              });
+              const data = await resp.json();
+              if (data.success) {
+                favoritesSet.add(title);
+                btn.classList.add("saved");
+                btn.textContent = "★";
+              }
+            }
+            updateFavoritesList();
+          };
+        });
+      }
+
+      let currentPlace = null;
+
+      function openPlaceModal(place) {
+        currentPlace = place;
+        document.getElementById("placeTitleModal").textContent = place.title;
+        const placeDescEl = document.getElementById("placeDescModal");
+        if (place.descHtml) {
+          placeDescEl.innerHTML = place.descHtml;
+        } else {
+          placeDescEl.textContent = place.desc;
+        }
+
+        currentPlacePhotos =
+          Array.isArray(place.photos) && place.photos.length
+            ? normalizePhotos(place.photos)
+            : [place.img];
+        currentPhotoIndex = 0;
+        document.getElementById("placePhotoMain").src =
+          currentPlacePhotos[currentPhotoIndex];
+        document.getElementById("photoCounter").textContent =
+          `${currentPhotoIndex + 1}/${currentPlacePhotos.length}`;
+
+        document.getElementById("placeModal").classList.remove("hidden");
+
+        // Инициализация карты
+        setTimeout(() => {
+          const mapElement = document.getElementById("placeMap");
+          if (mapElement) {
+            if (leafletMap) {
+              leafletMap.remove();
+              leafletMap = null;
+            }
+
+            mapElement.innerHTML = "";
+            leafletMap = L.map(mapElement);
+
+            //  слой карты OpenStreetMap
+            L.tileLayer(
+              "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+              {
+                attribution: "© OpenStreetMap contributors",
+                maxZoom: 19,
+              },
+            ).addTo(leafletMap);
+
+            if (Array.isArray(place.locations) && place.locations.length) {
+              const bounds = L.latLngBounds(
+                place.locations.map((loc) => loc.coords),
+              );
+
+              place.locations.forEach((loc) => {
+                L.marker(loc.coords)
+                  .addTo(leafletMap)
+                  .bindPopup(loc.label || place.title);
+              });
+
+              leafletMap.fitBounds(bounds, { padding: [30, 30] });
+            } else if (place.coords) {
+              leafletMap.setView(place.coords, 13);
+              L.marker(place.coords)
+                .addTo(leafletMap)
+                .bindPopup(place.title)
+                .openPopup();
+            } else {
+              mapElement.innerHTML = "🗺️ Карта скоро появится";
+            }
+          }
+        }, 100);
+      }
+
+      function closePlaceModal() {
+        document.getElementById("placeModal").classList.add("hidden");
+        if (leafletMap) {
+          leafletMap.remove();
+          leafletMap = null;
+        }
+      }
+
+      function changePhoto(direction) {
+        if (!currentPlacePhotos.length) return;
+        currentPhotoIndex += direction;
+        if (currentPhotoIndex < 0)
+          currentPhotoIndex = currentPlacePhotos.length - 1;
+        if (currentPhotoIndex >= currentPlacePhotos.length)
+          currentPhotoIndex = 0;
+        document.getElementById("placePhotoMain").src =
+          currentPlacePhotos[currentPhotoIndex];
+        document.getElementById("photoCounter").textContent =
+          `${currentPhotoIndex + 1}/${currentPlacePhotos.length}`;
+      }
+
+      const themesBtn = document.getElementById("themesBtn");
+      const themesDropdown = document.getElementById("themesDropdown");
+      const themeChips = document.querySelectorAll(".theme-chip");
+      const citiesBtn = document.getElementById("citiesBtn");
+      const citiesDropdown = document.getElementById("citiesDropdown");
+      const cityChips = document.querySelectorAll(".city-chip");
+      const suggestBtn = document.getElementById("suggestBtn");
+      const modal = document.getElementById("suggestModal");
+      const locationModal = document.getElementById("locationModal");
+      const cancelBtn = document.getElementById("cancelBtn");
+      const locationCancel = document.getElementById("locationCancel");
+      const submitBtn = document.getElementById("submitBtn");
+      const locationSubmit = document.getElementById("locationSubmit");
+      const themesMenu = document.querySelector(".themes-menu");
+      const citiesMenu = document.querySelector(".cities-menu");
+      const burgerMenuBtn = document.getElementById("burgerMenuBtn");
+
+      themesBtn.onclick = () => {
+        themesDropdown.classList.toggle("hidden");
+        citiesDropdown.classList.add("hidden");
+      };
+
+      themeChips.forEach((chip) => {
+        chip.onclick = (e) => {
+          e.stopPropagation();
+          themeChips.forEach((c) => c.classList.remove("active"));
+          chip.classList.add("active");
+          currentTheme = chip.dataset.theme;
+          showPlaces(currentCity, currentTheme);
+          themesDropdown.classList.add("hidden");
+        };
+      });
+
+      citiesBtn.onclick = () => {
+        citiesDropdown.classList.toggle("hidden");
+        themesDropdown.classList.add("hidden");
+        burgerMenu.classList.remove("open");
+      };
+
+      burgerMenuBtn.onclick = (e) => {
+        e.stopPropagation();
+        burgerMenu.classList.toggle("open");
+        themesDropdown.classList.add("hidden");
+        citiesDropdown.classList.add("hidden");
+      };
+
+      burgerMenu.onclick = (e) => {
+        if (e.target === burgerMenu) {
+          burgerMenu.classList.remove("open");
+        }
+      };
+
+      document.querySelector(".burger-menu-content").onclick = (e) => {
+        e.stopPropagation();
+      };
+
+      cityChips.forEach((chip) => {
+        chip.onclick = (e) => {
+          e.stopPropagation();
+          cityChips.forEach((c) => c.classList.remove("active"));
+          chip.classList.add("active");
+          citiesBtn.textContent = chip.textContent.replace("➕ ", "") + " ▼";
+          if (chip.dataset.city === "add") {
+            modal.classList.remove("hidden");
+          } else {
+            currentCity = chip.dataset.city;
+            showPlaces(currentCity, currentTheme);
+            // Update map if it's open
+            const mapView = document.getElementById("mapView");
+            if (mapView && mapView.classList.contains("active")) {
+              openMapView();
+            }
+            citiesDropdown.classList.add("hidden");
+          }
+        };
+      });
+
+      document.onclick = (e) => {
+        if (
+          !themesMenu.contains(e.target) &&
+          !citiesMenu.contains(e.target) &&
+          !burgerMenu.contains(e.target) &&
+          !burgerMenuBtn.contains(e.target)
+        ) {
+          themesDropdown.classList.add("hidden");
+          citiesDropdown.classList.add("hidden");
+          burgerMenu.classList.remove("open");
+        }
+      };
+
+      suggestBtn.onclick = (e) => {
+        e.stopPropagation();
+        // clear previous values
+        const citySelect = document.getElementById("locationCity");
+        const titleField = document.getElementById("locationTitle");
+        const descField = document.getElementById("locationDesc");
+        const themeChecks = document.querySelectorAll(".theme-select");
+        const otherCheckboxEl = document.getElementById("themeOtherCheckbox");
+        const otherInputEl = document.getElementById("themeOtherInput");
+        if (citySelect) citySelect.value = "";
+        if (titleField) titleField.value = "";
+        if (descField) descField.value = "";
+        themeChecks.forEach((ch) => (ch.checked = false));
+        if (otherCheckboxEl) {
+          otherCheckboxEl.checked = false;
+        }
+        if (otherInputEl) {
+          otherInputEl.value = "";
+          otherInputEl.classList.add("hidden");
+        }
+        locationModal.classList.remove("hidden");
+        themesDropdown.classList.add("hidden");
+        citiesDropdown.classList.add("hidden");
+        burgerMenu.classList.remove("open");
+      };
+
+<<<<<<< HEAD
+      const userId = Number(document.body.dataset.userId) || null;
+      const userName = document.body.dataset.userName || "Гость";
+=======
+      const user = tg.initDataUnsafe?.user || {
+        id: "guest",
+        username: "guest",
+      };
+>>>>>>> f7b72ac90dfe668b0bdbed3e54cea5cbb549e539
+
+      cancelBtn.onclick = () => modal.classList.add("hidden");
+      submitBtn.onclick = async () => {
+        const newCity = document.getElementById("newCityName").value.trim();
+        if (newCity) {
+          try {
+<<<<<<< HEAD
+            const res = await fetch("/api/suggest", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                type: "city",
+                city: newCity,
+                user_id: userId || "guest",
+                nickname: currentNickname || userName,
+              }),
+            });
+=======
+            const res = await fetch(
+              "https://02081-production.up.railway.app/api/suggest",
+              {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  type: "city",
+                  city: newCity,
+                  user_id: user.id || "guest",
+                  nickname: currentNickname || "Гость",
+                }),
+              },
+            );
+>>>>>>> f7b72ac90dfe668b0bdbed3e54cea5cbb549e539
+            if (res.ok) {
+              alert("✅ Город отправлен на модерацию!");
+              document.getElementById("newCityName").value = "";
+              modal.classList.add("hidden");
+            }
+          } catch (e) {
+            alert("❌ Проверь интернет");
+          }
+        }
+      };
+
+      locationCancel.onclick = () => locationModal.classList.add("hidden");
+
+      // toggle visibility of custom theme input
+      const themeOtherCheckbox = document.getElementById("themeOtherCheckbox");
+      const themeOtherInput = document.getElementById("themeOtherInput");
+      if (themeOtherCheckbox) {
+        themeOtherCheckbox.addEventListener("change", () => {
+          if (themeOtherCheckbox.checked) {
+            themeOtherInput.classList.remove("hidden");
+            themeOtherInput.focus();
+          } else {
+            themeOtherInput.classList.add("hidden");
+            themeOtherInput.value = "";
+          }
+        });
+      }
+
+      locationSubmit.onclick = async () => {
+        const citySelect = document.getElementById("locationCity");
+        const title = document.getElementById("locationTitle").value.trim();
+        const desc = document.getElementById("locationDesc").value.trim();
+<<<<<<< HEAD
+        const photoInput = document.getElementById("locationPhotos");
+        const photoFiles = Array.from(photoInput?.files || []);
+        if (citySelect.value && title && desc) {
+          const selected = Array.from(
+            document.querySelectorAll(".theme-select:checked"),
+          ).map((el) => el.value);
+
+          const customTheme = document
+            .getElementById("customTheme")
+            .value.trim();
+          if (customTheme) {
+            selected.push(customTheme.toLowerCase());
+          }
+
+          try {
+            const res = await fetch("/api/suggest", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                type: "place",
+                city: citySelect.value,
+                title: title,
+                description: desc,
+                themes: selected,
+                user_id: userId || "guest",
+                nickname: currentNickname || userName,
+              }),
+            });
+=======
+        if (citySelect.value && title && desc) {
+          // collect selected themes, excluding the "other" placeholder
+          const selected = Array.from(
+            document.querySelectorAll(".theme-select:checked"),
+          )
+            .map((el) => el.value)
+            .filter((v) => v !== "other");
+
+          // handle custom theme
+          const otherCheckbox = document.getElementById("themeOtherCheckbox");
+          const otherInput = document.getElementById("themeOtherInput");
+
+          if (otherCheckbox.checked) {
+            const otherVal = otherInput.value.trim();
+            if (!otherVal) {
+              alert(
+                "❗ Пожалуйста, заполните поле 'Другое' или снимите галочку.",
+              );
+              return;
+            }
+            selected.push(otherVal);
+          }
+
+          try {
+            const res = await fetch(
+              "https://02081-production.up.railway.app/api/suggest",
+              {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  type: "place",
+                  city: citySelect.value,
+                  title: title,
+                  description: desc,
+                  themes: selected,
+                  user_id: user.id || "guest",
+                  nickname: currentNickname || "Гость",
+                }),
+              },
+            );
+>>>>>>> f7b72ac90dfe668b0bdbed3e54cea5cbb549e539
+            if (res.ok) {
+              if (photoFiles.length) {
+                const photoForm = new FormData();
+                photoFiles.forEach((file) => photoForm.append("photos", file));
+                photoForm.append("location", title);
+                photoForm.append("city", citySelect.value);
+                photoForm.append("user_id", String(userId || "guest"));
+                await fetch("/api/suggest/photos", {
+                  method: "POST",
+                  body: photoForm,
+                });
+              }
+              alert("✅ Локация отправлена на модерацию!");
+              citySelect.value = "";
+              document.getElementById("locationTitle").value = "";
+              document.getElementById("locationDesc").value = "";
+<<<<<<< HEAD
+              document.getElementById("customTheme").value = "";
+              if (photoInput) {
+                photoInput.value = "";
+              }
+=======
+              // clear theme selection
+>>>>>>> f7b72ac90dfe668b0bdbed3e54cea5cbb549e539
+              document
+                .querySelectorAll(".theme-select")
+                .forEach((c) => (c.checked = false));
+              locationModal.classList.add("hidden");
+            }
+          } catch (e) {
+            alert("❌ Проверь интернет");
+          }
+        }
+      };
+
+<<<<<<< HEAD
+      async function initApp() {
+        await loadFavorites();
+        updateFavoritesList();
+        showPlaces("novosibirsk", "all");
+        applyInitialRouteState();
+      }
+      initApp();
+
+      document.querySelectorAll(".modal").forEach((modalEl) => {
+        modalEl.addEventListener("click", (e) => {
+          if (e.target === modalEl) {
+            modalEl.classList.add("hidden");
+          }
+        });
+      });
+=======
+      showPlaces("novosibirsk", "popular");
+
+      // -------- меню / поиск / чат --------
+      const menuBtn = document.getElementById("menuBtn");
+      const menuPanel = document.getElementById("menuPanel");
+      const closeMenuBtn = document.getElementById("closeMenuBtn");
+      const tabChats = document.getElementById("tabChats");
+      const tabSearch = document.getElementById("tabSearch");
+      const chatsSection = document.getElementById("chatsSection");
+      const searchSection = document.getElementById("searchSection");
+      const userSearchInput = document.getElementById("userSearchInput");
+      const searchResults = document.getElementById("searchResults");
+
+      // функция поиска, вызываемая из нескольких мест
+      async function performUserSearch() {
+        const q = userSearchInput.value.trim();
+        if (!q) {
+          searchResults.innerHTML = "";
+          return;
+        }
+        try {
+          const res = await fetch(
+            `/api/search-users?q=${encodeURIComponent(q)}`,
+          );
+          const list = await res.json();
+          searchResults.innerHTML = "";
+          if (list.length === 0) {
+            searchResults.innerHTML = "<p>Ничего не найдено</p>";
+            return;
+          }
+          list.forEach((u) => {
+            const div = document.createElement("div");
+            div.className = "search-result";
+            div.textContent = u.nickname;
+            div.onclick = () => {
+              openChat(u.id, u.nickname);
+              menuPanel.classList.remove("visible");
+            };
+            searchResults.appendChild(div);
+          });
+        } catch (e) {
+          console.error(e);
+        }
+      }
+
+      // связываем события
+      userSearchInput.addEventListener("input", performUserSearch);
+      const userSearchBtn = document.getElementById("userSearchBtn");
+      userSearchBtn.addEventListener("click", performUserSearch);
+
+      // open first result when pressing Enter
+      userSearchInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          const first = searchResults.querySelector(".search-result");
+          if (first) first.click();
+        }
+      });
+      const chatsList = document.getElementById("chatsList");
+
+      // panel show/hide handled below in icon logic
+      closeMenuBtn.onclick = () => {
+        menuPanel.classList.remove("visible");
+        userSearchInput.value = "";
+        searchResults.innerHTML = "";
+      };
+
+      function switchTab(tab) {
+        if (tab === "chats") {
+          tabChats.classList.add("active");
+          tabSearch.classList.remove("active");
+          chatsSection.classList.add("active");
+          searchSection.classList.remove("active");
+        } else {
+          tabChats.classList.remove("active");
+          tabSearch.classList.add("active");
+          chatsSection.classList.remove("active");
+          searchSection.classList.add("active");
+          userSearchInput.focus();
+        }
+      }
+
+      tabChats.onclick = () => switchTab("chats");
+      tabSearch.onclick = () => switchTab("search");
+
+      // переключение через иконки
+      const menuIconsEl = document.getElementById("menuIcons");
+      const chatIconBtn = document.getElementById("chatIconBtn");
+      const searchIconBtn = document.getElementById("searchIconBtn");
+
+      menuBtn.onclick = (e) => {
+        e.stopPropagation();
+        // toggle icon dropdown panel
+        menuIconsEl.classList.toggle("hidden");
+      };
+      document.addEventListener("click", (e) => {
+        if (!menuBtn.contains(e.target) && !menuIconsEl.contains(e.target)) {
+          menuIconsEl.classList.add("hidden");
+        }
+      });
+      document.addEventListener("click", (e) => {
+        if (!menuBtn.contains(e.target) && !menuIconsEl.contains(e.target)) {
+          menuIconsEl.classList.add("hidden");
+        }
+      });
+
+      chatIconBtn.onclick = () => {
+        menuIconsEl.classList.add("hidden");
+        menuPanel.classList.add("visible");
+        switchTab("chats");
+        loadChats();
+      };
+      searchIconBtn.onclick = () => {
+        menuIconsEl.classList.add("hidden");
+        menuPanel.classList.add("visible");
+        switchTab("search");
+      };
+
+      // keep previous close behavior (clearing search is handled above)
+      closeMenuBtn.onclick = () => {
+        menuPanel.classList.remove("visible");
+        userSearchInput.value = "";
+        searchResults.innerHTML = "";
+        menuIconsEl.classList.add("hidden");
+      };
+
+      async function loadChats() {
+        const res = await fetch(`/api/friends/${user.id}`);
+        const list = await res.json();
+        if (list.length === 0) {
+          chatsList.innerHTML = "<p>Нет друзей</p>";
+          return;
+        }
+        chatsList.innerHTML = "";
+        list.forEach((f) => {
+          const div = document.createElement("div");
+          div.className = "chat-item";
+          div.textContent = f.nickname;
+          div.onclick = () => openChat(f.id, f.nickname);
+          chatsList.appendChild(div);
+        });
+      }
+
+      let currentChat = null;
+      async function openChat(otherId, otherNick) {
+        currentChat = { id: otherId, nickname: otherNick };
+        // simple chat overlay
+        const chatOverlay = document.createElement("div");
+        chatOverlay.className = "menu-panel visible";
+        chatOverlay.innerHTML = `
+          <div class="panel-content">
+            <h3>Чат с ${otherNick}</h3>
+            <div id="messagesContainer" style="max-height:300px;overflow-y:auto;margin-bottom:8px;"></div>
+            <textarea id="msgInput" style="width:100%;height:60px;"></textarea>
+            <button id="sendMsgBtn" class="btn primary" style="margin-top:8px;">Отправить</button>
+            <button id="closeChatBtn" class="btn secondary" style="margin-top:8px;">Закрыть</button>
+          </div>
+        `;
+        document.body.appendChild(chatOverlay);
+        document.getElementById("closeChatBtn").onclick = () =>
+          document.body.removeChild(chatOverlay);
+        document.getElementById("sendMsgBtn").onclick = sendMessage;
+        await refreshMessages();
+      }
+
+      async function refreshMessages() {
+        if (!currentChat) return;
+        const res = await fetch(`/api/messages/${user.id}/${currentChat.id}`);
+        const msgs = await res.json();
+        const container = document.getElementById("messagesContainer");
+        container.innerHTML = "";
+        msgs.forEach((m) => {
+          const p = document.createElement("p");
+          p.textContent = `${m.sender === user.id ? "Я" : currentChat.nickname}: ${m.text}`;
+          container.appendChild(p);
+        });
+        container.scrollTop = container.scrollHeight;
+      }
+
+      async function sendMessage() {
+        const txt = document.getElementById("msgInput").value.trim();
+        if (!txt) return;
+        await fetch("/api/send-message", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            sender_id: user.id,
+            receiver_id: currentChat.id,
+            text: txt,
+          }),
+        });
+        document.getElementById("msgInput").value = "";
+        await refreshMessages();
+      }
+
+      userSearchInput.oninput = async () => {
+        const q = userSearchInput.value.trim();
+        if (!q) {
+          searchResults.innerHTML = "";
+          return;
+        }
+        const res = await fetch(`/api/search-users?q=${encodeURIComponent(q)}`);
+        const candidates = await res.json();
+        searchResults.innerHTML = "";
+        candidates.forEach((u) => {
+          if (u.id === user.id) return;
+          const div = document.createElement("div");
+          div.className = "search-result";
+          div.textContent = u.nickname;
+          const btn = document.createElement("button");
+          btn.className = "action-btn";
+          btn.textContent = "Добавить";
+          btn.onclick = async () => {
+            await fetch("/api/friend-request", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                sender_id: user.id,
+                receiver_id: u.id,
+              }),
+            });
+            alert("Запрос отправлен / дружба добавлена");
+          };
+          div.appendChild(btn);
+          searchResults.appendChild(div);
+        });
+      };
+>>>>>>> f7b72ac90dfe668b0bdbed3e54cea5cbb549e539
+    </script>
+  </body>
+</html>
+
