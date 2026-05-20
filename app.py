@@ -23,8 +23,14 @@ BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 # ===== APP =====
 app = Flask(__name__, template_folder='templates')
 app.config['SECRET_KEY'] = 'your-secret-key-change-it'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(BASE_DIR, 'tag.db')
+
+# для Render 
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
+    'DATABASE_URL',
+    'sqlite:///app.db'
+)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 app.config['UPLOAD_FOLDER'] = os.path.join(BASE_DIR, 'uploads')
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=30)
 
@@ -35,6 +41,9 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
+with app.app_context():
+    db.create_all()
+    
 # ===== MODELS =====
 class City(db.Model):
     id = db.Column(db.Integer, primary_key=True)
